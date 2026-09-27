@@ -1,23 +1,20 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/mark.svg' />
+    <title>Radhi Arrazzaaq | Personal Portfolio</title>
+    <meta name='description' content='Welcome to the personal space of Radhi Arrazzaaq. Connect with me on Instagram or say hello on WhatsApp.' />
+    <meta name='theme-color' content='#f6f4ed' />
+    <link rel='canonical' href='https://radhiarrazzaaq.com/' />
+    <meta property='og:title' content='Radhi Arrazzaaq | Personal Portfolio' />
+    <meta property='og:description' content='A space to connect. Find me on Instagram or say hello on WhatsApp.' />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content='https://radhiarrazzaaq.com/' />
+  </head>
+  <body><a class='skip-link' href='#main'>Skip to content</a><slot /></body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  :root{--paper:#f6f4ed;--ink:#282b23;--muted:#66695c;--accent:#67704e;--line:#d9d9cc;color:var(--ink);background:var(--paper);font-family:Arial,Helvetica,sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%}a{color:inherit}a:focus-visible{outline:2px solid var(--accent);outline-offset:6px}.skip-link{position:absolute;top:-80px;left:16px;padding:12px;background:var(--ink);color:var(--paper);z-index:10}.skip-link:focus{top:12px}
 </style>
