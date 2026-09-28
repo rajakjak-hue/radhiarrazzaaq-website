@@ -1,8 +1,9 @@
 const englishHomeCopy = {
   meta: {
-    title: 'Radhi Arrazzaaq | Personal Portfolio',
-    description: 'Welcome to the personal space of Radhi Arrazzaaq. Connect with me on Instagram or say hello on WhatsApp.',
-    ogDescription: 'A space to connect. Find me on Instagram or say hello on WhatsApp.',
+    title: 'Google & Meta Ads Specialist | Radhi Arrazzaaq',
+    description: 'I help business owners promote their products and services through Google Ads and Meta Ads campaigns focused on generating qualified leads.',
+    ogTitle: 'Turn Paid Ads Into Qualified Sales Conversations',
+    ogDescription: 'Work with Radhi Arrazzaaq to promote your business through focused Google Ads and Meta Ads campaigns.',
     skipLink: 'Skip to content',
   },
   language: {
@@ -113,9 +114,10 @@ export type HomeCopy = typeof englishHomeCopy;
 
 const indonesianHomeCopy: HomeCopy = {
   meta: {
-    title: 'Radhi Arrazzaaq | Portofolio Pribadi',
-    description: 'Kenali karya Radhi Arrazzaaq. Hubungi saya lewat Instagram atau WhatsApp.',
-    ogDescription: 'Ruang untuk terhubung. Temukan saya di Instagram atau sapa saya lewat WhatsApp.',
+    title: 'Spesialis Google Ads & Meta Ads | Radhi Arrazzaaq',
+    description: 'Saya membantu pemilik bisnis mempromosikan produk dan layanan melalui kampanye Google Ads dan Meta Ads yang berfokus pada lead berkualitas.',
+    ogTitle: 'Ubah Iklan Berbayar Menjadi Lead yang Lebih Berkualitas',
+    ogDescription: 'Promosikan bisnis Anda bersama Radhi Arrazzaaq melalui kampanye Google Ads dan Meta Ads yang lebih terarah.',
     skipLink: 'Langsung ke konten',
   },
   language: {

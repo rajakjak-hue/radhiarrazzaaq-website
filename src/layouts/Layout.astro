@@ -12,6 +12,8 @@ const siteUrl = 'https://radhiarrazzaaq.com';
 const canonicalUrl = new URL(locale === 'en' ? '/' : '/id/', siteUrl).href;
 const alternateHref = new URL(alternateUrl, siteUrl).href;
 const alternateLocale = locale === 'en' ? 'id' : 'en';
+const ogLocale = locale === 'en' ? 'en_US' : 'id_ID';
+const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
 ---
 
 <!doctype html>
@@ -28,10 +30,15 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     <link href='https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap' rel='stylesheet' />
     <link rel='canonical' href={canonicalUrl} />
     <link rel='alternate' hreflang={alternateLocale} href={alternateHref} />
-    <meta property='og:title' content={meta.title} />
+    <meta property='og:title' content={meta.ogTitle} />
     <meta property='og:description' content={meta.ogDescription} />
     <meta property='og:type' content='website' />
     <meta property='og:url' content={canonicalUrl} />
+    <meta property='og:locale' content={ogLocale} />
+    <meta property='og:locale:alternate' content={alternateOgLocale} />
+    <meta name='twitter:card' content='summary' />
+    <meta name='twitter:title' content={meta.ogTitle} />
+    <meta name='twitter:description' content={meta.ogDescription} />
   </head>
   <body><a class='skip-link' href='#main'>{meta.skipLink}</a><slot /></body>
 </html>
