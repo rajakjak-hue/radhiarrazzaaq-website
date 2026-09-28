@@ -75,7 +75,7 @@ const englishHomeCopy = {
       {
         label: 'QUALIFY THE LEAD',
         title: 'Qualify leads before sales takes over',
-        body: 'When prospects clicked through to WhatsApp, an AI agent inside Cekat.AI answered basic questions and collected useful information. Qualified prospects were then passed to the sales team with clearer needs and stronger intent.',
+        body: 'When prospects clicked through to WhatsApp, an AI agent answered basic questions and collected useful information. Qualified prospects were then passed to the sales team with clearer needs and stronger intent.',
       },
     ],
     stepPrefix: 'Step',
@@ -188,7 +188,7 @@ const indonesianHomeCopy: HomeCopy = {
       {
         label: 'SARING PROSPEK',
         title: 'Saring prospek sebelum ditangani tim penjualan',
-        body: 'Saat calon pelanggan masuk ke WhatsApp, agen AI di Cekat.AI menjawab pertanyaan dasar dan mengumpulkan informasi yang berguna. Prospek yang memenuhi kualifikasi kemudian diteruskan ke tim penjualan dengan kebutuhan yang lebih jelas dan minat yang lebih kuat.',
+        body: 'Saat calon pelanggan masuk ke WhatsApp, agen AI menjawab pertanyaan dasar dan mengumpulkan informasi yang berguna. Prospek yang memenuhi kualifikasi kemudian diteruskan ke tim penjualan dengan kebutuhan yang lebih jelas dan minat yang lebih kuat.',
       },
     ],
     stepPrefix: 'Langkah',
