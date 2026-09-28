@@ -1,5 +1,16 @@
 ## Development
 
+### Coding-only workspace
+
+Codex agents working in this project are coding assistants only.
+
+- Do not open or control a browser, including Chrome, Edge, or the in-app browser.
+- Do not use browser automation, computer-use tools, screenshots, screen capture, or visual inspection tools.
+- Do not open preview URLs on the user's behalf. Provide the URL so the user can review it manually.
+- Work through local source files, terminal commands, build output, and text-based checks.
+- Do not use web browsing tools unless the user explicitly requests web research for the current task.
+- These restrictions remain active unless the user explicitly changes them. A separate Codex agent can be created for browser or screenshot work when needed.
+
 When starting the dev server, use background mode:
 
 ```
