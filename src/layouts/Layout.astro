@@ -1,22 +1,39 @@
+---
+import type { HomeCopy } from '../data/homeCopy';
+
+interface Props {
+  locale: 'en' | 'id';
+  alternateUrl: string;
+  meta: HomeCopy['meta'];
+}
+
+const { locale, alternateUrl, meta } = Astro.props;
+const siteUrl = 'https://radhiarrazzaaq.com';
+const canonicalUrl = new URL(locale === 'en' ? '/' : '/id/', siteUrl).href;
+const alternateHref = new URL(alternateUrl, siteUrl).href;
+const alternateLocale = locale === 'en' ? 'id' : 'en';
+---
+
 <!doctype html>
-<html lang='en'>
+<html lang={locale}>
   <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href='/mark.svg' />
-    <title>Radhi Arrazzaaq | Personal Portfolio</title>
-    <meta name='description' content='Welcome to the personal space of Radhi Arrazzaaq. Connect with me on Instagram or say hello on WhatsApp.' />
+    <title>{meta.title}</title>
+    <meta name='description' content={meta.description} />
     <meta name='theme-color' content='#000000' />
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <link href='https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap' rel='stylesheet' />
-    <link rel='canonical' href='https://radhiarrazzaaq.com/' />
-    <meta property='og:title' content='Radhi Arrazzaaq | Personal Portfolio' />
-    <meta property='og:description' content='A space to connect. Find me on Instagram or say hello on WhatsApp.' />
+    <link rel='canonical' href={canonicalUrl} />
+    <link rel='alternate' hreflang={alternateLocale} href={alternateHref} />
+    <meta property='og:title' content={meta.title} />
+    <meta property='og:description' content={meta.ogDescription} />
     <meta property='og:type' content='website' />
-    <meta property='og:url' content='https://radhiarrazzaaq.com/' />
+    <meta property='og:url' content={canonicalUrl} />
   </head>
-  <body><a class='skip-link' href='#main'>Skip to content</a><slot /></body>
+  <body><a class='skip-link' href='#main'>{meta.skipLink}</a><slot /></body>
 </html>
 <style is:global>
   body { font-family: Arial, Helvetica, sans-serif; }
