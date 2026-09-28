@@ -27,7 +27,7 @@ const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
     <meta name='theme-color' content='#000000' />
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-    <link href='https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap' rel='stylesheet' />
+    <link href='https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap' rel='stylesheet' />
     <link rel='canonical' href={canonicalUrl} />
     <link rel='alternate' hreflang={alternateLocale} href={alternateHref} />
     <link rel='sitemap' href='/sitemap-index.xml' />
@@ -40,6 +40,13 @@ const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
     <meta name='twitter:card' content='summary' />
     <meta name='twitter:title' content={meta.ogTitle} />
     <meta name='twitter:description' content={meta.ogDescription} />
+    <script async src='https://www.googletagmanager.com/gtag/js?id=G-20488DPLDS'></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-20488DPLDS');
+    </script>
   </head>
   <body><a class='skip-link' href='#main'>{meta.skipLink}</a><slot /></body>
 </html>
