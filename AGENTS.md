@@ -8,6 +8,18 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Release workflow
+
+For every website change:
+
+1. Build the site with `npm.cmd run build`.
+2. Deploy `dist/` to the Cloudflare Pages `preview` branch for review.
+3. Wait for the user's explicit approval of the preview.
+4. Commit the approved change to Git and push it to the `main` branch.
+5. Deploy the approved `dist/` build to the Cloudflare Pages production branch.
+
+Cloudflare Pages project: `radhiarrazzaaq-website`.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

@@ -17,7 +17,61 @@ import portrait from '../../images/Profile Pic-1.jpeg';
         <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog'>Say hello on WhatsApp <span aria-hidden='true'>&#8599;</span></a>
         <a class='button secondary' href='https://www.instagram.com/radhiarrazzaaq/' target='_blank' rel='noopener noreferrer'>Instagram <span class='handle'>@radhiarrazzaaq</span><span aria-hidden='true'>&#8599;</span></a>
       </nav>
+      <a class='scroll-cue' href='#case-title'>Explore the work <span aria-hidden='true'>↓</span></a>
     </main>
+    <section class='case-study' aria-labelledby='case-title'>
+      <div class='case-heading' data-reveal>
+        <p class='eyebrow'>SELECTED CASE STUDY <span aria-hidden='true'>&middot;</span> OCT–DEC 2025</p>
+        <h2 id='case-title'>SaaS for <em>Doctors</em></h2>
+        <p class='case-intro'>A lead generation and qualification system for a healthcare SaaS product.</p>
+      </div>
+
+      <div class='case-grid'>
+        <section class='case-story' aria-labelledby='case-challenge' data-reveal>
+          <h3 id='case-challenge'>The challenge</h3>
+          <p>Generate qualified leads while keeping cost per qualified lead near Rp80,000. Lead volume alone was not enough. Sales needed prospects with clear intent.</p>
+          <h3>The approach</h3>
+          <p>I connected Meta Instant Forms, Click to WhatsApp, and Google Search Ads to a qualification flow that filtered leads before the sales handoff.</p>
+          <ul class='channels' aria-label='Campaign channels'>
+            <li>Meta Ads</li>
+            <li>Google Search Ads</li>
+            <li>Click to WhatsApp</li>
+          </ul>
+        </section>
+
+        <section class='results' aria-labelledby='results-title' data-reveal>
+          <p id='results-title' class='results-label'>Campaign results</p>
+          <dl>
+            <div>
+              <dt>320</dt>
+              <dd>qualified leads</dd>
+            </div>
+            <div>
+              <dt>Rp35.6M</dt>
+              <dd>total ad spend</dd>
+            </div>
+            <div>
+              <dt>3 months</dt>
+              <dd>campaign period</dd>
+            </div>
+          </dl>
+          <p class='results-note'>The result: fewer spam and invalid leads, faster intent validation, and a more focused sales handoff.</p>
+        </section>
+      </div>
+
+      <section class='funnel' aria-labelledby='funnel-title' data-reveal>
+        <div>
+          <p class='eyebrow'>MY ROLE</p>
+          <h3 id='funnel-title'>From campaign setup to validated handoff</h3>
+        </div>
+        <ol>
+          <li><span>01</span> Build campaign structure</li>
+          <li><span>02</span> Qualify leads through forms and WhatsApp</li>
+          <li><span>03</span> Monitor CPL and lead quality</li>
+          <li><span>04</span> Coordinate validated leads with sales</li>
+        </ol>
+      </section>
+    </section>
     <footer>&copy; {new Date().getFullYear()} Radhi Arrazzaaq <span aria-hidden='true'>&middot;</span> A space to connect.</footer>
   </div>
   <dialog id='enquiry' aria-labelledby='enquiry-title'>
@@ -98,14 +152,25 @@ import portrait from '../../images/Profile Pic-1.jpeg';
     const previous = history.pop();
     if (previous) show(previous, false);
   });
+
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    revealItems.forEach(item => revealObserver.observe(item));
+    document.documentElement.classList.add('motion-ready');
+  }
 </script>
 
 <style>
   .page {
     min-height: 100svh;
     min-height: 100dvh;
-    display: grid;
-    grid-template-rows: 1fr auto;
     padding: max(16px, env(safe-area-inset-top)) 24px max(16px, env(safe-area-inset-bottom));
     text-align: center;
   }
@@ -126,7 +191,10 @@ import portrait from '../../images/Profile Pic-1.jpeg';
   .back { min-height: 44px; background: none; border: 0; padding: 10px 0; margin-top: 12px; color: var(--blue); font-size: 15px; cursor: pointer; }
   button:focus-visible, textarea:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
   :global(body:has(dialog[open])) { overflow: hidden; }
-  main { align-self: center; width: 100%; max-width: 660px; margin: 0 auto; padding: 18px 0; }
+  main { min-height: calc(100svh - 32px); min-height: calc(100dvh - 32px); display: grid; align-content: center; width: 100%; max-width: 660px; margin: 0 auto; padding: 18px 0; }
+  .scroll-cue { display: inline-flex; align-items: center; justify-self: center; gap: 12px; min-height: 44px; margin-top: clamp(28px, 6vh, 64px); color: var(--blue); font: 600 15px/1 'Rajdhani', Arial, sans-serif; letter-spacing: 1.5px; text-decoration: none; text-transform: uppercase; }
+  .scroll-cue span { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--blue); border-radius: 50%; font: 20px/1 Arial, sans-serif; transition: transform .25s ease, background .25s ease; }
+  .scroll-cue:hover span { transform: translateY(4px); background: #102333; }
   .portrait { width: clamp(110px, 22svh, 210px); aspect-ratio: 1; margin: 0 auto; padding: 6px; border: 2px solid var(--blue); border-radius: 50%; background: #07111a; box-shadow: 0 0 28px #59baf11a; }
   .portrait img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center; }
   .eyebrow { margin: 18px 0 10px; font: 600 14px/1.2 'Rajdhani', Arial, sans-serif; letter-spacing: 2px; color: var(--blue); }
@@ -134,14 +202,50 @@ import portrait from '../../images/Profile Pic-1.jpeg';
   h1 em { font-weight: 600; font-style: normal; color: var(--accent); }
   .description { font-size: 17px; line-height: 1.5; color: var(--muted); margin: 14px 0 20px; }
   .links { display: grid; gap: 10px; width: 100%; max-width: 380px; margin: auto; }
-  .button { min-height: 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; padding: 10px; font: 600 20px/1.2 'Rajdhani', Arial, sans-serif; text-decoration: none; border: 1px solid var(--accent); border-radius: 6px; }
+  .button { min-height: 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; padding: 10px; font: 600 20px/1.2 'Rajdhani', Arial, sans-serif; text-decoration: none; border: 1px solid var(--accent); border-radius: 6px; transition: transform .25s ease, background .25s ease, border-color .25s ease; }
+  .button:hover { transform: translateY(-2px); }
   .primary { background: var(--accent); color: var(--paper); }
   .primary:hover { background: #f6e68a; border-color: #f6e68a; }
   .secondary { border-color: var(--blue); color: var(--blue); background: #07111a; }
   .secondary:hover { background: #102333; }
   .handle { color: var(--muted); font-size: 14px; }
-  footer { color: var(--muted); font-size: 13px; line-height: 1.4; }
+  .case-study { position: relative; isolation: isolate; overflow: hidden; width: min(1120px, 100%); margin: 64px auto 46px; padding: clamp(28px, 5vw, 64px); text-align: left; border: 1px solid var(--line); border-radius: 10px; background: linear-gradient(135deg, #07111a 0%, #000 65%); scroll-margin-top: 28px; }
+  .case-study::before { content: ''; position: absolute; top: 0; left: 0; width: clamp(90px, 24%, 250px); height: 3px; background: var(--accent); box-shadow: 0 0 24px #ead97199; }
+  .case-heading { max-width: 690px; }
+  .case-heading .eyebrow { margin-top: 0; }
+  .case-heading h2 { margin: 0; font: 600 clamp(42px, 7vw, 72px)/1 'Rajdhani', Arial, sans-serif; letter-spacing: -1px; }
+  .case-heading h2 em { font-style: normal; color: var(--accent); }
+  .case-heading h2::after { content: ''; display: block; width: min(100%, 430px); height: 1px; margin-top: 20px; background: linear-gradient(90deg, var(--accent), transparent); transform-origin: left; }
+  .case-intro { max-width: 540px; margin: 16px 0 0; color: var(--muted); font-size: clamp(17px, 2vw, 20px); line-height: 1.5; }
+  .case-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); gap: clamp(32px, 7vw, 90px); margin-top: clamp(38px, 6vw, 66px); }
+  .case-story h3, .funnel h3 { margin: 0 0 10px; font: 600 24px/1.15 'Rajdhani', Arial, sans-serif; color: var(--blue); letter-spacing: .3px; }
+  .case-story p { margin: 0 0 28px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+  .channels { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+  .channels li { padding: 7px 10px; border: 1px solid #2d536b; border-radius: 999px; color: var(--blue); font: 600 15px/1 'Rajdhani', Arial, sans-serif; }
+  .results { padding: clamp(22px, 4vw, 34px); border-left: 2px solid var(--accent); background: #0a0e12; box-shadow: 0 16px 55px #0008; }
+  .results-label { margin: 0 0 22px; color: var(--accent); font: 600 14px/1.2 'Rajdhani', Arial, sans-serif; letter-spacing: 1.8px; text-transform: uppercase; }
+  .results dl { display: grid; gap: 22px; margin: 0; }
+  .results dl div { display: grid; grid-template-columns: minmax(112px, auto) 1fr; align-items: baseline; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #1c2a35; transition: border-color .25s ease, transform .25s ease; }
+  .results dl div:hover { transform: translateX(4px); border-color: var(--blue); }
+  .results dt { color: var(--ink); font: 600 clamp(30px, 4vw, 42px)/1 'Rajdhani', Arial, sans-serif; white-space: nowrap; }
+  .results dd { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.3; }
+  .results-note { margin: 28px 0 0; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; line-height: 1.6; }
+  .funnel { display: grid; grid-template-columns: minmax(200px, .7fr) minmax(0, 1.3fr); gap: 32px; margin-top: clamp(46px, 7vw, 80px); padding-top: clamp(30px, 5vw, 54px); border-top: 1px solid var(--line); }
+  .funnel .eyebrow { margin: 0 0 10px; }
+  .funnel h3 { color: var(--ink); font-size: clamp(25px, 3vw, 34px); }
+  .funnel ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; padding: 0; margin: 0; list-style: none; }
+  .funnel li { padding: 15px 0; border-top: 1px solid #2a3a47; color: var(--ink); font: 600 18px/1.3 'Rajdhani', Arial, sans-serif; }
+  .funnel li span { display: block; margin-bottom: 7px; color: var(--blue); font-size: 13px; letter-spacing: 1px; }
+  footer { margin-top: 12px; color: var(--muted); font-size: 13px; line-height: 1.4; }
   footer span { margin: 0 6px; }
+  :global(.motion-ready) [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
+  :global(.motion-ready) [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+  :global(.motion-ready) .case-heading h2::after { transform: scaleX(0); transition: transform .8s ease .25s; }
+  :global(.motion-ready) .case-heading.is-visible h2::after { transform: scaleX(1); }
+  @media (prefers-reduced-motion: reduce) {
+    .button, .scroll-cue span, .results dl div, [data-reveal] { transition: none !important; }
+    .button:hover, .scroll-cue:hover span, .results dl div:hover { transform: none; }
+  }
   @media (max-height: 700px) {
     .page { padding-top: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
     main { padding: 12px 0; }
@@ -163,6 +267,12 @@ import portrait from '../../images/Profile Pic-1.jpeg';
   }
   @media (max-width: 600px) {
     .page { padding-left: 16px; padding-right: 16px; }
+    main { min-height: calc(100svh - 32px); min-height: calc(100dvh - 32px); }
+    .case-study { margin-top: 40px; padding: 28px 20px; }
+    .case-grid, .funnel { grid-template-columns: 1fr; }
+    .case-grid { gap: 34px; }
+    .funnel { gap: 24px; }
+    .funnel ol { grid-template-columns: 1fr; gap: 0; }
   }
   @media (max-height: 600px) and (max-width: 599px) {
     main { padding: 6px 0; }
