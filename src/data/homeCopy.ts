@@ -53,37 +53,6 @@ const englishHomeCopy = {
       'Coordinate validated leads with sales',
     ],
   },
-  howWork: {
-    eyebrow: 'HOW I WORK',
-    title: 'From an offer to a qualified sales conversation',
-    intro: 'Running ads is not only about choosing an audience and setting a budget. First, I need to understand why someone should care about what we are promoting.',
-    tabListLabel: 'The four stages of my process',
-    steps: [
-      {
-        label: 'FIND THE OFFER',
-        title: 'Find the strongest offer',
-        body: 'What are we asking people to respond to? It could be a unique advantage, a promotion, a new feature, or a specific result. “Promote the product” is too broad. The campaign needs a clear reason for someone to take action.',
-      },
-      {
-        label: 'STUDY THE MARKET',
-        title: 'Study the market',
-        body: 'I research the audience, competitors, and messages already being used. Then I look for what competitors have missed, especially problems or product benefits that customers care about but nobody explains clearly.',
-      },
-      {
-        label: 'BUILD THE MESSAGE',
-        title: 'Connect the product to a real problem',
-        body: 'For the healthcare SaaS campaign, clinics wanted to achieve Akreditasi Paripurna. That required several improvements, including better integration across their operations. The SaaS offered that integration, so it became part of the campaign message.',
-        insight: 'Clear buying information also mattered. The ads that showed the subscription price generated the most qualified leads.',
-      },
-      {
-        label: 'QUALIFY THE LEAD',
-        title: 'Qualify leads before sales takes over',
-        body: 'When prospects clicked through to WhatsApp, an AI agent answered basic questions and collected useful information. Qualified prospects were then passed to the sales team with clearer needs and stronger intent.',
-      },
-    ],
-    stepPrefix: 'Step',
-    closing: 'I do not treat an ad click as the final result. I build a clear path from the right offer to a useful sales conversation.',
-  },
   enquiry: {
     eyebrow: "LET'S TALK",
     closeLabel: 'Close enquiry',
@@ -169,37 +138,6 @@ const indonesianHomeCopy: HomeCopy = {
       'Memantau biaya dan kualitas prospek',
       'Mengoordinasikan prospek tervalidasi dengan tim penjualan',
     ],
-  },
-  howWork: {
-    eyebrow: 'CARA SAYA BEKERJA',
-    title: 'Dari penawaran hingga percakapan penjualan yang tepat sasaran',
-    intro: 'Menjalankan iklan bukan sekadar memilih audiens dan menetapkan anggaran. Saya perlu memahami lebih dulu alasan orang tertarik pada hal yang dipromosikan.',
-    tabListLabel: 'Empat tahap cara saya bekerja',
-    steps: [
-      {
-        label: 'TEMUKAN PENAWARAN',
-        title: 'Temukan penawaran terkuat',
-        body: 'Apa yang membuat orang tertarik merespons? Bisa berupa keunggulan khusus, promosi, fitur baru, atau hasil tertentu. “Promosikan produk” terlalu umum. Kampanye memerlukan alasan yang jelas agar orang mau bertindak.',
-      },
-      {
-        label: 'PELAJARI PASAR',
-        title: 'Pelajari pasar',
-        body: 'Saya meneliti audiens, pesaing, dan pesan yang sudah beredar. Lalu saya mencari hal yang terlewat oleh pesaing, terutama masalah atau manfaat produk yang penting bagi pelanggan tetapi belum dijelaskan dengan baik.',
-      },
-      {
-        label: 'SUSUN PESAN',
-        title: 'Hubungkan produk dengan masalah nyata',
-        body: 'Dalam kampanye SaaS kesehatan, klinik ingin meraih Akreditasi Paripurna. Untuk itu, mereka perlu melakukan beberapa perbaikan, termasuk mengintegrasikan kegiatan operasional dengan lebih baik. SaaS tersebut menawarkan integrasi itu, sehingga manfaat tersebut menjadi bagian dari pesan kampanye.',
-        insight: 'Informasi pembelian yang jelas juga penting. Iklan yang mencantumkan harga berlangganan menghasilkan prospek berkualitas paling banyak.',
-      },
-      {
-        label: 'SARING PROSPEK',
-        title: 'Saring prospek sebelum ditangani tim penjualan',
-        body: 'Saat calon pelanggan masuk ke WhatsApp, agen AI menjawab pertanyaan dasar dan mengumpulkan informasi yang berguna. Prospek yang memenuhi kualifikasi kemudian diteruskan ke tim penjualan dengan kebutuhan yang lebih jelas dan minat yang lebih kuat.',
-      },
-    ],
-    stepPrefix: 'Langkah',
-    closing: 'Saya tidak menganggap klik iklan sebagai hasil akhir. Saya membangun alur yang jelas dari penawaran yang tepat hingga percakapan penjualan yang bermanfaat.',
   },
   enquiry: {
     eyebrow: 'MARI BICARA',

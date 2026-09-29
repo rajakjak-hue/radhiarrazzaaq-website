@@ -1,15 +1,19 @@
 ---
-import type { HomeCopy } from '../data/homeCopy';
-
 interface Props {
   locale: 'en' | 'id';
   alternateUrl: string;
-  meta: HomeCopy['meta'];
+  meta: {
+    title: string;
+    description: string;
+    ogTitle: string;
+    ogDescription: string;
+    skipLink: string;
+  };
 }
 
 const { locale, alternateUrl, meta } = Astro.props;
 const siteUrl = 'https://radhiarrazzaaq.com';
-const canonicalUrl = new URL(locale === 'en' ? '/' : '/id/', siteUrl).href;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const alternateHref = new URL(alternateUrl, siteUrl).href;
 const alternateLocale = locale === 'en' ? 'id' : 'en';
 const ogLocale = locale === 'en' ? 'en_US' : 'id_ID';

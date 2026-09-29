@@ -1,0 +1,7 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import HowIWorkPage from '../../components/HowIWorkPage.astro';
+import { howIWorkCopy } from '../../data/howIWorkCopy';
+---
+
+<HowIWorkPage locale='id' copy={howIWorkCopy.id} alternateUrl={getRelativeLocaleUrl('en', 'how-i-work')} />

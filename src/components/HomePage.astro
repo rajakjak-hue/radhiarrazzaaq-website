@@ -35,7 +35,7 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
       </nav>
       <div class='links'>
         <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog'>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>
-        <button class='button secondary workflow-button' type='button' disabled>{copy.hero.workflow}</button>
+        <a class='button secondary workflow-button' href={locale === 'en' ? '/how-i-work/' : '/id/how-i-work/'}>{copy.hero.workflow}</a>
       </div>
     </main>}
     {showPortfolio && <>
@@ -75,33 +75,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
           {copy.caseStudy.roleSteps.map((roleStep, index) => <li><span>{String(index + 1).padStart(2, '0')}</span> {roleStep}</li>)}
         </ol>
       </section>
-    </section>
-    <section id='how-i-work' class='how-work' aria-labelledby='how-i-work-title'>
-      <div class='work-heading'>
-        <p class='eyebrow'>{copy.howWork.eyebrow}</p>
-        <h2 id='how-i-work-title'>{copy.howWork.title}</h2>
-        <p class='work-intro'>{copy.howWork.intro}</p>
-      </div>
-
-      <div class='work-index' aria-label={copy.howWork.tabListLabel}>
-        {copy.howWork.steps.map((workStep, index) => <button id={`work-tab-${index + 1}`} class={index === 0 ? 'is-current' : undefined} type='button' aria-controls={`work-panel-${index + 1}`} disabled><span class='work-index-number'>{String(index + 1).padStart(2, '0')}</span><span>{workStep.label}</span></button>)}
-      </div>
-
-      <ol class='work-steps'>
-        {copy.howWork.steps.map((workStep, index) => <li>
-          <article id={`work-panel-${index + 1}`} aria-labelledby={`how-i-work-step-${index + 1}`}>
-            <div class='work-step-marker'><span>{copy.howWork.stepPrefix}</span><strong>{String(index + 1).padStart(2, '0')}</strong></div>
-            <div class='work-step-copy'>
-              <p class='work-step-label'>{workStep.label}</p>
-              <h3 id={`how-i-work-step-${index + 1}`}>{workStep.title}</h3>
-              <p>{workStep.body}</p>
-              {'insight' in workStep && workStep.insight && <p class='work-insight'>{workStep.insight}</p>}
-            </div>
-          </article>
-        </li>)}
-      </ol>
-
-      <p class='work-closing'>{copy.howWork.closing}</p>
     </section>
     <footer>&copy; {new Date().getFullYear()} Radhi Arrazzaaq <span aria-hidden='true'>&middot;</span> {copy.footer}</footer>
     </>}
@@ -205,52 +178,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     document.documentElement.classList.add('motion-ready');
   }
 
-  const workSection = document.querySelector<HTMLElement>('#how-i-work');
-  const workIndex = workSection?.querySelector<HTMLElement>('.work-index');
-  const workTabs = Array.from(workIndex?.querySelectorAll<HTMLButtonElement>('button') ?? []);
-  const workItems = Array.from(workSection?.querySelectorAll<HTMLLIElement>('.work-steps > li') ?? []);
-  const workPanels = workItems.map(item => item.querySelector<HTMLElement>('article'));
-
-  if (workSection && workIndex && workTabs.length === 4 && workPanels.every(Boolean)) {
-    workIndex.setAttribute('role', 'tablist');
-    workTabs.forEach((tab, index) => {
-      tab.disabled = false;
-      tab.setAttribute('role', 'tab');
-      workPanels[index]!.setAttribute('role', 'tabpanel');
-      workPanels[index]!.setAttribute('aria-labelledby', tab.id);
-      workPanels[index]!.tabIndex = 0;
-    });
-
-    function selectWorkStep(activeIndex: number) {
-      workTabs.forEach((tab, index) => {
-        const selected = index === activeIndex;
-        tab.setAttribute('aria-selected', String(selected));
-        tab.tabIndex = selected ? 0 : -1;
-        tab.classList.toggle('is-current', selected);
-        workItems[index].hidden = !selected;
-      });
-    }
-
-    selectWorkStep(0);
-    workSection.classList.add('work-tabs-ready');
-
-    workTabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => selectWorkStep(index));
-      tab.addEventListener('keydown', event => {
-        let nextIndex: number;
-        switch (event.key) {
-          case 'ArrowRight': nextIndex = (index + 1) % workTabs.length; break;
-          case 'ArrowLeft': nextIndex = (index - 1 + workTabs.length) % workTabs.length; break;
-          case 'Home': nextIndex = 0; break;
-          case 'End': nextIndex = workTabs.length - 1; break;
-          default: return;
-        }
-        event.preventDefault();
-        selectWorkStep(nextIndex);
-        workTabs[nextIndex].focus();
-      });
-    });
-  }
 </script>
 
 <style>
@@ -302,7 +229,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
   .primary:hover { background: #f6e68a; border-color: #f6e68a; }
   .secondary { border-color: var(--blue); color: var(--blue); background: #07111a; }
   .secondary:hover { background: #102333; }
-  .workflow-button:disabled { cursor: not-allowed; opacity: .52; transform: none; }
   .handle { color: var(--muted); font-size: 14px; }
   .case-study { position: relative; isolation: isolate; overflow: hidden; width: min(1120px, 100%); margin: 64px auto 46px; padding: clamp(28px, 5vw, 64px); text-align: left; border: 1px solid var(--line); border-radius: 10px; background: linear-gradient(135deg, #07111a 0%, #000 65%); scroll-margin-top: 28px; }
   .case-study::before { content: ''; position: absolute; top: 0; left: 0; width: clamp(90px, 24%, 250px); height: 3px; background: var(--accent); box-shadow: 0 0 24px #ead97199; }
@@ -331,36 +257,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
   .funnel ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; padding: 0; margin: 0; list-style: none; }
   .funnel li { padding: 15px 0; border-top: 1px solid #2a3a47; color: var(--ink); font: 600 18px/1.3 'Manrope', Arial, sans-serif; }
   .funnel li span { display: block; margin-bottom: 7px; color: var(--blue); font-size: 13px; letter-spacing: 1px; }
-  .how-work { width: min(1120px, 100%); margin: 0 auto 86px; padding: clamp(34px, 6vw, 72px) 0 0; border-top: 1px solid var(--line); text-align: left; }
-  .work-heading { max-width: 780px; }
-  .work-heading .eyebrow { margin: 0 0 18px; }
-  .work-heading h2 { max-width: 760px; margin: 0; font: 600 clamp(43px, 6.5vw, 76px)/.98 'Manrope', Arial, sans-serif; letter-spacing: -1.5px; text-wrap: balance; }
-  .work-intro { max-width: 650px; margin: 24px 0 0; color: var(--muted); font-size: clamp(17px, 1.7vw, 19px); line-height: 1.65; }
-  .work-index { display: none; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: clamp(42px, 6vw, 70px) 0 0; }
-  .work-tabs-ready .work-index { display: grid; }
-  .work-index button { min-width: 0; min-height: 72px; padding: 16px 8px 17px 0; border: 0; border-top: 2px solid var(--line); background: transparent; color: var(--muted); font: 600 clamp(14px, 1.5vw, 17px)/1.25 'Manrope', Arial, sans-serif; letter-spacing: .6px; text-align: left; cursor: pointer; transition: color .2s ease, border-color .2s ease; }
-  .work-index button:hover { border-color: var(--blue); color: var(--ink); }
-  .work-index button:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
-  .work-index .is-current { border-color: var(--accent); color: var(--accent); }
-  .work-index-number { display: block; margin-bottom: 12px; color: var(--blue); font: 600 14px/1 'Manrope', Arial, sans-serif; letter-spacing: 1.5px; }
-  .work-index .is-current .work-index-number { color: var(--accent); }
-  .work-steps { padding: 0; margin: 36px 0 0; list-style: none; border: 1px solid var(--line); background: #050d13; }
-  .work-tabs-ready .work-steps { margin-top: 0; border-top: 0; }
-  .work-steps > li + li { border-top: 1px solid var(--line); }
-  .work-tabs-ready .work-steps > li:not([hidden]) article { min-height: 330px; background: radial-gradient(circle at 0 0, #102738 0, #050d13 52%); animation: work-panel-enter .3s ease-out both; }
-  .work-tabs-ready .work-steps > li:not([hidden]) .work-step-marker strong { color: var(--accent); }
-  @keyframes work-panel-enter { from { opacity: .3; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .work-steps article { display: grid; grid-template-columns: clamp(100px, 17vw, 190px) minmax(0, 1fr); gap: clamp(20px, 5vw, 64px); padding: clamp(28px, 5vw, 58px); }
-  .work-steps > li:first-child article { min-height: 330px; background: radial-gradient(circle at 0 0, #102738 0, #050d13 52%); }
-  .work-step-marker { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; color: var(--blue); font: 600 16px/1 'Manrope', Arial, sans-serif; text-transform: uppercase; letter-spacing: 1.5px; }
-  .work-step-marker strong { color: var(--ink); font: 600 clamp(64px, 10vw, 118px)/.85 'Manrope', Arial, sans-serif; letter-spacing: -4px; }
-  .work-steps > li:first-child .work-step-marker strong { color: var(--accent); }
-  .work-step-copy { max-width: 690px; }
-  .work-step-label { margin: 0 0 12px; color: var(--blue); font: 600 14px/1.2 'Manrope', Arial, sans-serif; letter-spacing: 2px; }
-  .work-step-copy h3 { margin: 0 0 16px; font: 600 clamp(28px, 3.5vw, 42px)/1.05 'Manrope', Arial, sans-serif; text-wrap: balance; }
-  .work-step-copy > p:not(.work-step-label) { max-width: 650px; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.7; }
-  .work-step-copy > p + p.work-insight { margin-top: 26px; padding-left: 18px; border-left: 2px solid var(--blue); color: var(--ink); }
-  .work-closing { max-width: 790px; margin: clamp(36px, 5vw, 56px) 0 0; padding-left: 22px; border-left: 3px solid var(--accent); font: 600 clamp(24px, 3vw, 34px)/1.2 'Manrope', Arial, sans-serif; text-wrap: balance; }
   footer { margin-top: 12px; color: var(--muted); font-size: 13px; line-height: 1.4; }
   footer span { margin: 0 6px; }
   :global(.motion-ready) [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
@@ -370,8 +266,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
   @media (prefers-reduced-motion: reduce) {
     .button, .scroll-cue span, .results dl div, [data-reveal] { transition: none !important; }
     .button:hover, .scroll-cue:hover span, .results dl div:hover { transform: none; }
-    .work-index button { transition: none; }
-    .work-tabs-ready .work-steps > li:not([hidden]) article { animation: none; }
   }
   @media (max-height: 700px) {
     .page { padding-top: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
@@ -399,16 +293,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     .case-grid { gap: 34px; }
     .funnel { gap: 24px; }
     .funnel ol { grid-template-columns: 1fr; gap: 0; }
-    .how-work { margin-bottom: 58px; padding-top: 40px; }
-    .work-heading h2 { font-size: clamp(39px, 11vw, 56px); }
-    .work-index { gap: 8px; overflow-x: auto; grid-template-columns: repeat(4, minmax(140px, 1fr)); margin-top: 40px; padding-bottom: 6px; }
-    .work-index button { padding-top: 13px; }
-    .work-steps article { grid-template-columns: 1fr; gap: 24px; padding: 30px 20px 34px; }
-    .work-steps > li:first-child article { min-height: 0; }
-    .work-tabs-ready .work-steps > li:not([hidden]) article { min-height: 0; }
-    .work-step-marker { flex-direction: row; align-items: baseline; gap: 10px; }
-    .work-step-marker strong { font-size: 68px; }
-    .work-step-copy > p:not(.work-step-label) { font-size: 16px; }
   }
   @media (max-height: 600px) and (max-width: 599px) {
     main { padding: 6px 0; }
