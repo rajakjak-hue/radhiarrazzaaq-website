@@ -113,10 +113,12 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
       <button class='button primary' id='choose-paid' type='button'>{copy.enquiry.choosePaid}</button>
       <button class='button secondary' data-other type='button'>{copy.enquiry.chooseOther}</button>
     </section>
-    <section data-step='platform' class='choices' hidden>
-      <button class='button primary' data-platform='Google Ads' type='button'>{copy.enquiry.googleAds}</button>
-      <button class='button secondary' data-platform='Meta Ads' type='button'>{copy.enquiry.metaAds}</button>
-      <button class='button secondary' data-other type='button'>{copy.enquiry.customize}</button>
+    <section data-step='issue' class='choices' hidden>
+      <button class='button primary' data-issue={copy.enquiry.issueLeadQuality} type='button'>{copy.enquiry.issueLeadQuality}</button>
+      <button class='button secondary' data-issue={copy.enquiry.issueTrialBookings} type='button'>{copy.enquiry.issueTrialBookings}</button>
+      <button class='button secondary' data-issue={copy.enquiry.issueFollowUp} type='button'>{copy.enquiry.issueFollowUp}</button>
+      <button class='button secondary' data-issue={copy.enquiry.issueNotSure} type='button'>{copy.enquiry.issueNotSure}</button>
+      <button class='button secondary' data-other type='button'>{copy.enquiry.chooseOther}</button>
     </section>
     <form data-step='custom' id='custom-form' hidden>
       <label for='custom-request'>{copy.enquiry.customLabel}</label>
@@ -139,11 +141,11 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
   const back = document.querySelector<HTMLButtonElement>('#enquiry-back')!;
   const custom = document.querySelector<HTMLTextAreaElement>('#custom-request')!;
   const send = document.querySelector<HTMLAnchorElement>('#whatsapp-send')!;
-  type Step = 'start' | 'platform' | 'custom' | 'confirm';
+  type Step = 'start' | 'issue' | 'custom' | 'confirm';
   const enquiryCopy = JSON.parse(dialog.dataset.copy ?? '{}') as {
     headings: Record<Step, string>;
     customRequired: string;
-    paidMessage: string;
+    issueMessage: string;
     customMessage: string;
   };
   let history: Step[] = [];
@@ -170,10 +172,10 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     show('start', false);
   });
   document.querySelector('#enquiry-close')!.addEventListener('click', () => dialog.close());
-  document.querySelector('#choose-paid')!.addEventListener('click', () => show('platform'));
+  document.querySelector('#choose-paid')!.addEventListener('click', () => show('issue'));
   dialog.querySelectorAll<HTMLButtonElement>('[data-other]').forEach(button => button.addEventListener('click', () => show('custom')));
-  dialog.querySelectorAll<HTMLButtonElement>('[data-platform]').forEach(button => button.addEventListener('click', () => {
-    confirmMessage(enquiryCopy.paidMessage.replace('{platform}', button.dataset.platform ?? ''));
+  dialog.querySelectorAll<HTMLButtonElement>('[data-issue]').forEach(button => button.addEventListener('click', () => {
+    confirmMessage(enquiryCopy.issueMessage.replace('{issue}', button.dataset.issue ?? ''));
   }));
   custom.addEventListener('input', () => custom.setCustomValidity(''));
   document.querySelector('#custom-form')!.addEventListener('submit', event => {
@@ -285,8 +287,9 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
   .portrait img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center; }
   .eyebrow { margin: 18px 0 10px; font: 600 14px/1.2 'Manrope', Arial, sans-serif; letter-spacing: 2px; color: var(--blue); }
   .identity { margin: 20px 0 10px; color: var(--accent); font: 700 clamp(16px, 2vw, 19px)/1.2 'Manrope', Arial, sans-serif; letter-spacing: .2px; }
-  h1 { max-width: 650px; margin: 0 auto; font: 700 clamp(28px, 4.5vw, 42px)/1.15 'Manrope', Arial, sans-serif; letter-spacing: -1.2px; text-wrap: balance; }
+  h1 { max-width: 650px; margin: 0 auto; font: 700 clamp(28px, 4vw, 38px)/1.15 'Manrope', Arial, sans-serif; letter-spacing: -1.2px; text-wrap: balance; }
   h1 span { display: block; }
+  h1 span + span { margin-top: 10px; color: var(--blue); font-size: clamp(17px, 2.2vw, 22px); font-weight: 600; letter-spacing: -.4px; }
   .location { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 14px 0 18px; color: var(--muted); font-size: 15px; }
   .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-bottom: 20px; }
   .social-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 8px 15px; border: 1px solid var(--line); border-radius: 999px; color: var(--blue); font: 600 14px/1 'Manrope', Arial, sans-serif; text-decoration: none; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
@@ -375,7 +378,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     main { padding: 12px 0; }
     .portrait { width: clamp(88px, 20svh, 135px); }
     .eyebrow { margin: 14px 0 8px; }
-    h1 { font-size: clamp(36px, calc(8vw + 4px), 52px); }
     .description { margin: 12px 0 16px; }
   }
   @media (max-height: 480px) and (min-width: 600px) {
@@ -384,7 +386,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     .portrait { grid-column: 1; grid-row: 1 / 5; width: 130px; }
     .eyebrow, h1, .description, .links { grid-column: 2; }
     .eyebrow { margin: 0 0 8px; }
-    h1 { font-size: 40px; }
     .description { margin: 8px 0 12px; }
     .links { gap: 6px; }
     .button { min-height: 44px; padding: 8px 12px; }
