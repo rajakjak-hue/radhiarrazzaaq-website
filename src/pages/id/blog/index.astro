@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import BlogIndexPage from '../../../components/BlogIndexPage.astro';
+import { blogCopy } from '../../../data/blogCopy';
+
+const entries = (await getCollection('blog', ({ data }) => data.lang === 'id' && !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+---
+
+<BlogIndexPage locale="id" alternateUrl="/blog/" copy={blogCopy.id} entries={entries} />

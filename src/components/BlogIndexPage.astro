@@ -1,0 +1,80 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import InteriorHeader from './InteriorHeader.astro';
+import type { BlogCopy } from '../data/blogCopy';
+
+interface Props {
+  locale: 'en' | 'id';
+  alternateUrl: string;
+  copy: BlogCopy;
+  entries: CollectionEntry<'blog'>[];
+}
+
+const { locale, alternateUrl, copy, entries } = Astro.props;
+const dateLocale = locale === 'en' ? 'en-US' : 'id-ID';
+const articlePrefix = locale === 'en' ? '/blog/' : '/id/blog/';
+const formatDate = (date: Date) => new Intl.DateTimeFormat(dateLocale, {
+  day: 'numeric', month: 'long', year: 'numeric',
+}).format(date);
+---
+
+<Layout locale={locale} alternateUrl={alternateUrl} meta={copy.meta}>
+  <InteriorHeader locale={locale} alternateUrl={alternateUrl} language={copy.language} />
+  <main id="main" class="blog-index">
+    <header class="intro">
+      <p class="eyebrow">{copy.index.eyebrow}</p>
+      <h1>{copy.index.title}</h1>
+      <p class="lede">{copy.index.intro}</p>
+      <ul class="topics" aria-label={locale === 'en' ? 'Topics' : 'Topik'}>
+        {copy.index.topics.map((topic) => <li>{topic}</li>)}
+      </ul>
+    </header>
+
+    <section class="notes" aria-labelledby="latest-notes">
+      <p class="section-label" id="latest-notes">{copy.index.featured}</p>
+      <div class="note-list">
+        {entries.map((entry, index) => (
+          <article class="note-card">
+            <div class="note-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
+            <div class="note-copy">
+              <p class="note-meta">
+                <span>{entry.data.topic}</span>
+                <time datetime={entry.data.publishDate.toISOString().slice(0, 10)}>{formatDate(entry.data.publishDate)}</time>
+              </p>
+              <h2><a href={`${articlePrefix}${entry.data.slug}/`}>{entry.data.title}</a></h2>
+              <p>{entry.data.summary}</p>
+              <a class="read-link" href={`${articlePrefix}${entry.data.slug}/`}>
+                {copy.index.readArticle}<span aria-hidden="true"> →</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .blog-index{width:min(1180px,calc(100% - 40px));margin:0 auto;padding:clamp(72px,10vw,144px) 0 120px;font-family:Manrope,Arial,sans-serif}
+  .intro{max-width:900px}
+  .eyebrow,.section-label{margin:0 0 24px;color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.2em}
+  h1{max-width:870px;margin:0;font-size:clamp(3rem,8vw,7.4rem);line-height:.92;letter-spacing:-.07em}
+  .lede{max-width:700px;margin:32px 0 0;color:var(--muted);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.7}
+  .topics{display:flex;flex-wrap:wrap;gap:10px;margin:38px 0 0;padding:0;list-style:none}
+  .topics li{padding:9px 13px;border:1px solid var(--line);color:var(--blue);font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .notes{margin-top:clamp(88px,12vw,160px)}
+  .note-list{border-top:1px solid var(--line)}
+  .note-card{display:grid;grid-template-columns:120px 1fr;gap:clamp(24px,5vw,72px);padding:clamp(38px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  .note-number{color:var(--accent);font-size:clamp(3rem,6vw,6rem);font-weight:800;line-height:.9;letter-spacing:-.06em}
+  .note-copy{max-width:780px}
+  .note-meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 20px;color:var(--blue);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .note-meta time{color:var(--muted)}
+  h2{margin:0;font-size:clamp(2rem,4.5vw,4.3rem);line-height:1.02;letter-spacing:-.05em}
+  h2 a{text-decoration:none}
+  h2 a:hover{color:var(--accent)}
+  .note-copy>p:not(.note-meta){max-width:680px;margin:24px 0 0;color:var(--muted);font-size:1.05rem;line-height:1.75}
+  .read-link{display:inline-block;margin-top:28px;color:var(--accent);font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-underline-offset:6px}
+  .read-link:hover{color:var(--blue)}
+  @media (max-width:700px){.blog-index{width:min(100% - 28px,1180px);padding-top:64px}.note-card{grid-template-columns:1fr}.note-number{font-size:3.5rem}.note-meta{line-height:1.6}}
+</style>

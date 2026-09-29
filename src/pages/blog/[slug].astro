@@ -1,0 +1,33 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BlogPostPage from '../../components/BlogPostPage.astro';
+import { blogCopy } from '../../data/blogCopy';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog', ({ data }) => !data.draft);
+  const englishEntries = entries.filter((entry) => entry.data.lang === 'en');
+
+  return englishEntries.map((entry) => {
+    const translation = entries.find((candidate) =>
+      candidate.data.lang === 'id' && candidate.data.translationKey === entry.data.translationKey
+    );
+    return {
+      params: { slug: entry.data.slug },
+      props: { entry, alternateSlug: translation?.data.slug },
+    };
+  });
+}
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+  alternateSlug?: string;
+}
+
+const { entry, alternateSlug } = Astro.props;
+const { Content } = await render(entry);
+const alternateUrl = alternateSlug ? `/id/blog/${alternateSlug}/` : '/id/blog/';
+---
+
+<BlogPostPage locale="en" alternateUrl={alternateUrl} copy={blogCopy.en} entry={entry}>
+  <Content />
+</BlogPostPage>

@@ -31,6 +31,7 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
       <nav class='social-links' aria-label={copy.hero.connectLabel}>
         <a href='https://www.instagram.com/radhiarrazzaaq/' target='_blank' rel='noopener noreferrer'>{copy.hero.instagram}</a>
         <a href='https://www.youtube.com/@radhiarrazzaaq' target='_blank' rel='noopener noreferrer'>{copy.hero.youtube}</a>
+        <a href={locale === 'en' ? '/blog/' : '/id/blog/'}>{copy.hero.blog}</a>
         <a href='mailto:rajakjak@gmail.com'>{copy.hero.email}</a>
       </nav>
       <div class='links'>
