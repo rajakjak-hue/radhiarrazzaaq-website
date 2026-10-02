@@ -50,7 +50,7 @@ The Working Together page remains available at `/how-i-work/` without a header l
 
 - The blog is a separate content experience reached through the English header.
 - Visitors on the blog or an individual blog post may navigate back to the homepage, Case Studies, or Contact.
-- Blog index and article pages use the site's light editorial palette, Newsreader headings, Source Sans 3 body text, blue links, and yellow accents in both languages.
+- All public pages use Source Sans 3 for headings and body text, the shared light cream palette, blue links and primary buttons, and yellow accents in both languages. Blog pages keep editorial spacing and readable article widths.
 
 ## Editorial direction
 

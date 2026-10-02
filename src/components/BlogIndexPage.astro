@@ -56,21 +56,21 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat(dateLocale, {
 </Layout>
 
 <style>
-  .blog-index{width:min(1180px,calc(100% - 48px));margin:0 auto;padding:clamp(82px,11vw,154px) 0 130px;font-family:'Source Sans 3',Arial,sans-serif}
+  .blog-index{width:min(1180px,calc(100% - 48px));margin:0 auto;padding:clamp(82px,11vw,154px) 0 130px;font-family:var(--font-body)}
   .intro{max-width:900px}
   .eyebrow,.section-label{margin:0 0 24px;color:var(--blue);font-size:14px;font-weight:700;letter-spacing:.14em}
-  h1{max-width:900px;margin:0;font-family:'Newsreader',Georgia,serif;font-size:clamp(64px,8vw,116px);font-weight:500;line-height:.95;letter-spacing:-.05em;text-wrap:balance}
+  h1{max-width:900px;margin:0;font-family:var(--font-heading);font-size:clamp(64px,8vw,116px);font-weight:700;line-height:.95;letter-spacing:-.05em;text-wrap:balance}
   .lede{max-width:700px;margin:32px 0 0;color:var(--muted);font-size:clamp(20px,2.2vw,24px);line-height:1.55}
   .topics{display:flex;flex-wrap:wrap;gap:10px;margin:38px 0 0;padding:0;list-style:none}
   .topics li{padding:7px 0;border-bottom:1px solid var(--blue);color:var(--blue);font-size:14px;font-weight:600;letter-spacing:.03em}
   .notes{margin-top:clamp(88px,12vw,160px)}
   .note-list{border-top:1px solid var(--line)}
   .note-card{display:grid;grid-template-columns:120px 1fr;gap:clamp(24px,5vw,72px);padding:clamp(38px,6vw,72px) 0;border-bottom:1px solid var(--line)}
-  .note-number{color:var(--accent-strong);font-family:'Newsreader',Georgia,serif;font-size:clamp(3rem,6vw,6rem);font-weight:500;line-height:.9;letter-spacing:-.05em}
+  .note-number{color:var(--accent-strong);font-family:var(--font-heading);font-size:clamp(3rem,6vw,6rem);font-weight:700;line-height:.9;letter-spacing:-.05em}
   .note-copy{max-width:780px}
   .note-meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 20px;color:var(--blue);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
   .note-meta time{color:var(--muted)}
-  h2{margin:0;font-family:'Newsreader',Georgia,serif;font-size:clamp(40px,4.7vw,74px);font-weight:500;line-height:1;letter-spacing:-.04em;text-wrap:balance}
+  h2{margin:0;font-family:var(--font-heading);font-size:clamp(40px,4.7vw,74px);font-weight:700;line-height:1;letter-spacing:-.04em;text-wrap:balance}
   h2 a{text-decoration:none}
   h2 a:hover{color:var(--blue);text-decoration:underline;text-underline-offset:5px}
   .note-copy>p:not(.note-meta){max-width:680px;margin:24px 0 0;color:var(--muted);font-size:19px;line-height:1.65}
