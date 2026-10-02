@@ -14,6 +14,10 @@ const englishHomeCopy = {
   hero: {
     firstName: 'Radhi',
     lastName: 'Arrazzaaq',
+    titleStart: 'Let’s Grow Your',
+    titleHighlight: 'Trial Bookings',
+    flowLabel: 'From paid ads to trial bookings',
+    flowSteps: ['Paid Ads', 'Lead Qualification', 'Follow-Up', 'Trial Booking'],
     description: 'Let’s Grow Your Trial Bookings',
     descriptionSecond: 'Connecting paid ads, lead qualification, and follow-up for tutoring and language-course businesses.',
     location: 'Jakarta, Indonesia',
@@ -101,6 +105,10 @@ const indonesianHomeCopy: HomeCopy = {
   hero: {
     firstName: 'Radhi',
     lastName: 'Arrazzaaq',
+    titleStart: 'Mari Tingkatkan',
+    titleHighlight: 'Booking Trial Anda',
+    flowLabel: 'Dari iklan berbayar ke booking trial',
+    flowSteps: ['Iklan Berbayar', 'Kualifikasi Lead', 'Tindak Lanjut', 'Booking Trial'],
     description: 'Mari Tingkatkan Booking Trial Anda',
     descriptionSecond: 'Menghubungkan iklan berbayar, kualifikasi lead, dan follow-up untuk bisnis bimbel dan kursus bahasa.',
     location: 'Jakarta, Indonesia',

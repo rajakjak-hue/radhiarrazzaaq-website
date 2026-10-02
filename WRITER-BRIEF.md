@@ -43,8 +43,10 @@ The Working Together page remains available at `/how-i-work/` without a header l
 
 ## Indonesian status
 
-- Preserve existing Indonesian URLs. The new English header shows an unavailable ID option until its visual treatment is approved.
-- Keep Indonesian copy semantically aligned in natural language. The existing Indonesian homepage and Working Together routes use corresponding headlines; their full design and navigation remain postponed.
+- Preserve existing Indonesian URLs and provide `/id/work/` as the equivalent of `/work/`.
+- Both homepages share the current hero layout, portrait, four-step lead flow, and localized enquiry CTA. Indonesian headline: `Mari Tingkatkan Booking Trial Anda`.
+- Indonesian navigation uses `Studi Kasus`, `Blog`, and `Kontak`, with the same header design as English. Both languages use enabled EN/ID links to equivalent pages, including blog articles and Working Together.
+- Every public page renders the same header from the shared document layout, with identical width, height, padding, and mobile breakpoint. English is the default homepage at `/`; Indonesian stays at `/id/`, without browser-language redirects.
 
 ## Blog relationship
 

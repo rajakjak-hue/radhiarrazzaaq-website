@@ -9,31 +9,11 @@ interface Props {
 }
 
 const { locale, copy, alternateUrl } = Astro.props;
-const alternateLocale = locale === 'en' ? 'id' : 'en';
-const homeUrl = locale === 'en' ? '/' : '/id/';
 const whatsappUrl = `https://wa.me/6282273612856?text=${encodeURIComponent(copy.cta.message)}`;
 ---
 
 <Layout locale={locale} alternateUrl={alternateUrl} meta={copy.meta}>
-  <div class:list={['page-shell', { 'focused-page': locale === 'en' }]}>
-    <header class:list={['orientation', { 'focused-header': locale === 'en' }]}>
-      <a class='brand' href={homeUrl} aria-label={locale === 'en' ? 'Radhi Arrazzaaq, home' : undefined}>{locale === 'en' ? 'Radhi.' : 'Radhi Arrazzaaq'}</a>
-      {locale === 'en' ? <>
-        <nav class='site-links' aria-label='Explore'>
-          <a href='/work/'>Case Studies</a>
-          <a href='/blog/'>Blog</a>
-          <a href='/#enquiry-open'>Contact</a>
-        </nav>
-        <div class='language-placeholder' role='group' aria-label='Language'>
-          <span aria-current='page'>EN</span>
-          <span aria-hidden='true'>/</span>
-          <button type='button' disabled aria-label='Indonesian version unavailable for now'>ID</button>
-        </div>
-      </> : <nav class='language-switch' aria-label={copy.language.navLabel}>
-        <span aria-current='page'>{locale.toUpperCase()}</span>
-        <a href={alternateUrl} hreflang={alternateLocale} lang={alternateLocale} aria-label={alternateLocale === 'id' ? copy.language.indonesian : copy.language.english}>{alternateLocale.toUpperCase()}</a>
-      </nav>}
-    </header>
+  <div class:list={['page-shell', 'focused-page']}>
 
     <main id='main'>
       <section class='hero' aria-labelledby='method-title'>

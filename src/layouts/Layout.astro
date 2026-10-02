@@ -1,4 +1,6 @@
 ---
+import InteriorHeader from '../components/InteriorHeader.astro';
+
 interface Props {
   locale: 'en' | 'id';
   alternateUrl: string;
@@ -64,10 +66,13 @@ const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
   </head>
   <body>
     <noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-NGTCKF93' height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
-    <a class='skip-link' href='#main'>{meta.skipLink}</a><slot />
+    <a class='skip-link' href='#main'>{meta.skipLink}</a>
+    <InteriorHeader locale={locale} alternateUrl={alternateUrl} enquiryTrigger={['/', '/id/'].includes(Astro.url.pathname)} />
+    <slot />
   </body>
 </html>
 <style is:global>
-  :root{color-scheme:light;--font-body:'Source Sans 3',Arial,sans-serif;--font-heading:var(--font-body);--paper:#f7f5ee;--surface:#eeece4;--surface-raised:#fffefa;--ink:#192126;--muted:#5d686d;--accent:#f0d65e;--accent-strong:#b49b36;--blue:#245b78;--blue-deep:#19445d;--line:#d6dbd9;color:var(--ink);background:var(--paper);font-family:var(--font-body)}
+  :root{--site-header-height:74px;color-scheme:light;--font-body:'Source Sans 3',Arial,sans-serif;--font-heading:var(--font-body);--paper:#f7f5ee;--surface:#eeece4;--surface-raised:#fffefa;--ink:#192126;--muted:#5d686d;--accent:#f0d65e;--accent-strong:#b49b36;--blue:#245b78;--blue-deep:#19445d;--line:#d6dbd9;color:var(--ink);background:var(--paper);font-family:var(--font-body)}
   *{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%}body,input,textarea,button{font-family:var(--font-body)}h1,h2,h3,h4{font-family:var(--font-heading);font-weight:700}a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:6px}.skip-link{position:absolute;top:-80px;left:16px;padding:12px;background:var(--accent);color:var(--ink);z-index:10}.skip-link:focus{top:12px}
+  @media(max-width:760px){:root{--site-header-height:118px}}
 </style>

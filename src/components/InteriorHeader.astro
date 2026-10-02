@@ -1,61 +1,87 @@
 ---
 interface Props {
+  enquiryTrigger?: boolean;
   locale: 'en' | 'id';
   alternateUrl: string;
-  language: {
-    navLabel: string;
-    english: string;
-    indonesian: string;
-  };
 }
 
-const { locale, alternateUrl, language } = Astro.props;
+const { locale, alternateUrl, enquiryTrigger = false } = Astro.props;
 const homeUrl = locale === 'en' ? '/' : '/id/';
-const isBlogIndex = locale === 'en' && Astro.url.pathname.replace(/\/+$/, '') === '/blog';
+const prefix = locale === 'en' ? '' : '/id';
+const currentPath = Astro.url.pathname.replace(/\/+$/, '');
+const isBlogIndex = currentPath === `${prefix}/blog` || currentPath.startsWith(`${prefix}/blog/`);
+const isWork = currentPath === `${prefix}/work`;
 ---
 
-<header class:list={['interior-header', { 'english-header': locale === 'en' }]}>
-  <a class:list={['brand', { 'english-brand': locale === 'en' }]} href={homeUrl} aria-label={`Radhi Arrazzaaq, ${locale === 'en' ? 'home' : 'beranda'}`}>
-    {locale === 'en' ? 'Radhi.' : <><span aria-hidden="true">R/A</span><span>Radhi Arrazzaaq</span></>}
+<header class='site-header'>
+  <div class='header-inner'>
+  <a class='brand' href={homeUrl} aria-label={`Radhi Arrazzaaq, ${locale === 'en' ? 'home' : 'beranda'}`}>
+    Radhi.
   </a>
-  {locale === 'en' && <nav class='site-links' aria-label='Explore'>
-    <a href='/work/'>Case Studies</a>
-    <a href='/blog/' aria-current={isBlogIndex ? 'page' : undefined}>Blog</a>
-    <a href='/#enquiry-open'>Contact</a>
-  </nav>}
-  <nav class="language-switcher" aria-label={language.navLabel}>
+  <nav class='site-links' aria-label={locale === 'en' ? 'Explore' : 'Jelajahi'}>
+    <a href={`${prefix}/work/`} aria-current={isWork ? 'page' : undefined}>{locale === 'en' ? 'Case Studies' : 'Studi Kasus'}</a>
+    <a href={`${prefix}/blog/`} aria-current={isBlogIndex ? 'page' : undefined}>Blog</a>
+    <a href={`${homeUrl}#enquiry-open`} aria-haspopup={enquiryTrigger ? 'dialog' : undefined} data-enquiry-trigger={enquiryTrigger || undefined}>{locale === 'en' ? 'Contact' : 'Kontak'}</a>
+  </nav>
+  <nav class="language-switcher" data-locale={locale} aria-label={locale === 'en' ? 'Language' : 'Bahasa'}>
+    <span class='language-indicator' aria-hidden='true'></span>
     {locale === 'en' ? (
       <>
-        <span aria-current="page">EN</span>
-        <a href={alternateUrl} lang="id" hreflang="id" aria-label={language.indonesian}>ID</a>
+        <span class='language-option' aria-current="page">EN</span>
+        <a class='language-option' href={alternateUrl} lang="id" hreflang="id" aria-label='Indonesian'>ID</a>
       </>
     ) : (
       <>
-        <a href={alternateUrl} lang="en" hreflang="en" aria-label={language.english}>EN</a>
-        <span aria-current="page">ID</span>
+        <a class='language-option' href={alternateUrl} lang="en" hreflang="en" aria-label='Bahasa Inggris'>EN</a>
+        <span class='language-option' aria-current="page">ID</span>
       </>
     )}
   </nav>
+  </div>
 </header>
 
+<script>
+  document.querySelectorAll<HTMLElement>('.language-switcher').forEach((switcher) => {
+    const link = switcher.querySelector<HTMLAnchorElement>('a.language-option');
+    const indicator = switcher.querySelector<HTMLElement>('.language-indicator');
+    if (!link || !indicator) return;
+    let navigating = false;
+    link.addEventListener('click', async (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !indicator.animate) return;
+      event.preventDefault();
+      if (navigating) return;
+      navigating = true;
+      const from = switcher.dataset.locale === 'id' ? '100%' : '0%';
+      const to = switcher.dataset.locale === 'id' ? '0%' : '100%';
+      const animation = indicator.animate(
+        [{ transform: `translateX(${from})` }, { transform: `translateX(${to})` }],
+        { duration: 180, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' },
+      );
+      try { await animation.finished; } catch { /* Navigation still works if the animation is interrupted. */ }
+      window.location.assign(link.href);
+    });
+  });
+</script>
+
 <style>
-  .interior-header{width:min(1180px,calc(100% - 48px));margin:0 auto;min-height:92px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-  .brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;font-family:var(--font-body);font-size:.83rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-  .brand span:first-child{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--ink);color:var(--ink);font-size:.68rem;letter-spacing:.03em}
-  .english-brand{font-size:16px;font-weight:700;letter-spacing:.01em;text-transform:none}
-  .english-brand:hover{color:var(--blue)}
-  .language-switcher{display:flex;align-items:center;gap:14px;font-family:var(--font-body);font-size:.74rem;font-weight:700;letter-spacing:.12em}
-  .language-switcher a,.language-switcher span{padding:8px 0;text-decoration:none;border-bottom:1px solid transparent}
-  .language-switcher span{color:var(--ink);border-color:var(--accent-strong)}
-  .language-switcher a{color:var(--muted)}
-  .language-switcher a:hover{color:var(--blue);border-color:var(--blue)}
-  .english-header{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:24px}
-  .english-header .language-switcher{font-size:14px}
-  .site-links{display:flex;align-items:center;gap:clamp(14px,3vw,28px)}
+  .site-header{width:100%;background:var(--paper)}
+  .header-inner{width:min(1180px,100%);min-height:var(--site-header-height);margin:0 auto;padding:10px clamp(18px,4vw,56px);display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:24px;position:relative}
+  .header-inner::after{content:'';position:absolute;bottom:0;left:clamp(18px,4vw,56px);right:clamp(18px,4vw,56px);height:1px;background:var(--line)}
+  .brand{display:inline-flex;align-items:center;min-height:44px;justify-self:start;color:var(--ink);font:700 16px/1.2 var(--font-body);letter-spacing:.01em;text-decoration:none}
+  .brand:hover{color:var(--blue)}
+  .site-links{display:flex;align-items:center;justify-content:center;gap:clamp(14px,3vw,28px)}
   .site-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--blue);font:700 18px/1.2 var(--font-body);text-decoration:none;white-space:nowrap}
   .site-links a:hover,.site-links a[aria-current='page']{text-decoration:underline;text-underline-offset:4px}
-  .site-links a[aria-current='page']{text-decoration-color:var(--accent);text-decoration-thickness:2px}
-  @media (max-width:760px){.english-header{grid-template-columns:minmax(0,1fr) auto;gap:0 12px}.english-header .site-links{grid-column:1 / -1;grid-row:2;justify-content:center;padding-bottom:8px}.english-header .language-switcher{grid-column:2;grid-row:1}}
-  @media (max-width:600px){.interior-header{width:min(100% - 28px,1180px);min-height:72px}.brand span:last-child{display:none}}
-  @media (max-width:380px){.english-header .site-links{gap:12px}.english-header .site-links a{font-size:16px}}
+  .site-links a[aria-current='page']{text-decoration-color:var(--accent-strong);text-decoration-thickness:2px}
+  .language-switcher{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:104px;padding:3px;border:1px solid var(--line);border-radius:999px;justify-self:end;background:var(--surface);font:700 14px/1.2 var(--font-body);letter-spacing:.08em;isolation:isolate}
+  .language-indicator{position:absolute;z-index:-1;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/2);border-radius:999px;background:var(--accent);pointer-events:none}
+  .language-switcher[data-locale='id'] .language-indicator{transform:translateX(100%)}
+  .language-option{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;text-decoration:none;color:var(--blue)}
+  .language-option[aria-current='page']{color:var(--ink)}
+  a.language-option:hover{background:var(--surface-raised)}
+  a.language-option:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+  @media(prefers-reduced-motion:no-preference){a.language-option{transition:background-color .18s ease}}
+  @media(max-width:760px){.header-inner{grid-template-columns:minmax(0,1fr) auto;gap:0 12px}.site-links{grid-column:1 / -1;grid-row:2}.language-switcher{grid-column:2;grid-row:1}}
+  @media(max-width:380px){.site-links{gap:12px}.site-links a{font-size:16px}}
 </style>

@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import InteriorHeader from './InteriorHeader.astro';
 import type { BlogCopy } from '../data/blogCopy';
 
 interface Props {
@@ -20,7 +19,6 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat(dateLocale, {
 ---
 
 <Layout locale={locale} alternateUrl={alternateUrl} meta={copy.meta}>
-  <InteriorHeader locale={locale} alternateUrl={alternateUrl} language={copy.language} />
   <main id="main" class="blog-index">
     <header class="intro">
       <p class="eyebrow">{copy.index.eyebrow}</p>

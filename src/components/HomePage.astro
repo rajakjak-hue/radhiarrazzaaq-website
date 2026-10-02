@@ -12,33 +12,16 @@ interface Props {
 }
 
 const { locale, copy, alternateUrl, showPortfolio = false } = Astro.props;
-const alternateLocale = locale === 'en' ? 'id' : 'en';
-const isDirectionTest = locale === 'en' && !showPortfolio;
+const isDirectionTest = !showPortfolio;
 ---
 
 <Layout locale={locale} alternateUrl={alternateUrl} meta={copy.meta}>
   <div class:list={['page', { 'direction-test': isDirectionTest }]}>
-    {isDirectionTest ? <header class='site-header'>
-      <a class='home-brand' href='/' aria-label='Radhi Arrazzaaq, home'>Radhi.</a>
-      <nav class='site-links' aria-label='Explore'>
-        <a href='/work/'>Case Studies</a>
-        <a href='/blog/'>Blog</a>
-        <a href='/#enquiry-open' aria-haspopup='dialog' data-enquiry-trigger>Contact</a>
-      </nav>
-      <div class='language-placeholder' role='group' aria-label='Language'>
-        <span aria-current='page'>EN</span>
-        <span aria-hidden='true'>/</span>
-        <button type='button' disabled aria-label='Indonesian version unavailable for now'>ID</button>
-      </div>
-    </header> : <nav class='language-switch' aria-label={copy.language.navLabel}>
-      <span aria-current='page'>{locale.toUpperCase()}</span>
-      <a href={alternateUrl} hreflang={alternateLocale} lang={alternateLocale} aria-label={alternateLocale === 'id' ? copy.language.indonesian : copy.language.english}>{alternateLocale.toUpperCase()}</a>
-    </nav>}
     {!showPortfolio && <main id='main'>
       <div class='portrait'>
         <Image src={portrait} alt='Radhi Arrazzaaq' widths={[240, 480, 640]} sizes={isDirectionTest ? '(max-width: 760px) 80px, 38vw' : '(max-height: 600px) 110px, (max-width: 600px) 160px, 220px'} width={640} format='webp' loading='eager' fetchpriority='high' />
       </div>
-      {isDirectionTest ? <h1 class='hero-title'>Let’s Grow Your <mark>Trial Bookings</mark></h1> : <>
+      {isDirectionTest ? <h1 class='hero-title'>{copy.hero.titleStart} <mark>{copy.hero.titleHighlight}</mark></h1> : <>
         <p class='identity'>{copy.hero.firstName} {copy.hero.lastName}</p>
         <h1><span>{copy.hero.description}</span><span>{copy.hero.descriptionSecond}</span></h1>
         <nav class='social-links' aria-label={copy.hero.connectLabel}>
@@ -48,11 +31,8 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
           <a href='mailto:rajakjak@gmail.com'>{copy.hero.email}</a>
         </nav>
       </>}
-      {isDirectionTest && <ol class='lead-flow' aria-label='From paid ads to trial bookings'>
-        <li><span>01</span><strong>Paid Ads</strong></li>
-        <li><span>02</span><strong>Lead Qualification</strong></li>
-        <li><span>03</span><strong>Follow-Up</strong></li>
-        <li><span>04</span><strong>Trial Booking</strong></li>
+      {isDirectionTest && <ol class='lead-flow' aria-label={copy.hero.flowLabel}>
+        {copy.hero.flowSteps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong></li>)}
       </ol>}
       <div class='links'>
         <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog' data-enquiry-trigger>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>
@@ -170,7 +150,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
       openEnquiry();
     });
   });
-  if (window.location.pathname === '/' && window.location.hash === '#enquiry-open') openEnquiry();
+  if (['/', '/id/'].includes(window.location.pathname) && window.location.hash === '#enquiry-open') openEnquiry();
   document.querySelector('#enquiry-close')!.addEventListener('click', () => dialog.close());
   document.querySelector('#choose-paid')!.addEventListener('click', () => show('issue'));
   dialog.querySelectorAll<HTMLButtonElement>('[data-other]').forEach(button => button.addEventListener('click', () => show('custom')));
@@ -210,8 +190,8 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
 <style>
   .page {
     position: relative;
-    min-height: 100svh;
-    min-height: 100dvh;
+    min-height: calc(100svh - var(--site-header-height));
+    min-height: calc(100dvh - var(--site-header-height));
     padding: max(16px, env(safe-area-inset-top)) 24px max(16px, env(safe-area-inset-bottom));
     text-align: center;
   }
@@ -327,7 +307,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
     .description { margin: 8px 0 12px; }
     .links { gap: 6px; }
   }
-  /* English homepage experiment. Mobile rules come first. */
+  /* Shared homepage. The document header occupies its own viewport space. */
   .direction-test {
     color-scheme: light;
     --paper: #f7f5ee;
@@ -345,9 +325,9 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
     text-align: center;
     display: flex;
     flex-direction: column;
-    min-height: 100svh;
-    min-height: 100dvh;
-    padding: max(10px, env(safe-area-inset-top)) clamp(18px, 4vw, 56px) max(70px, env(safe-area-inset-bottom));
+    min-height: calc(100svh - var(--site-header-height));
+    min-height: calc(100dvh - var(--site-header-height));
+    padding: 10px clamp(18px, 4vw, 56px) max(24px, env(safe-area-inset-bottom));
   }
   .direction-test .site-header {
     width: min(100%, 1120px);
@@ -516,7 +496,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
   .direction-dialog .close,
   .direction-dialog .back { color: var(--blue); }
   @media (min-width: 761px) {
-    .direction-test { padding-bottom: max(54px, env(safe-area-inset-bottom)); }
+    .direction-test { padding-bottom: max(32px, env(safe-area-inset-bottom)); }
     .direction-test .site-header { grid-template-columns: minmax(0, 1fr) auto auto; width: min(1120px, 100%); gap: 24px; }
     .direction-test .site-links { grid-column: 2; grid-row: 1; }
     .direction-test .site-links a { min-height: 44px; }
@@ -548,7 +528,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
     .direction-test .site-links a { font-size: 16px; }
     .direction-test .hero-title { font-size: 49px; }
   }
-  @media (max-height: 620px) and (max-width: 760px) {
+  @media (max-height: 740px) and (max-width: 760px) {
     .direction-test { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
     .direction-test .portrait { width: 52px; margin-bottom: 9px; }
     .direction-test .hero-title { font-size: 46px; }
@@ -558,7 +538,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
     .direction-test .links { gap: 8px; }
     .direction-test .links > .primary { min-height: 58px; }
   }
-  @media (max-height: 620px) and (min-width: 761px) {
+  @media (max-height: 740px) and (min-width: 761px) {
     .direction-test .portrait { width: min(13vw, 90px, 16vh); margin-bottom: 12px; }
     .direction-test .hero-title { font-size: clamp(62px, 6.25vw, 78px); }
     .direction-test .lead-flow { margin: 20px auto 8px; }

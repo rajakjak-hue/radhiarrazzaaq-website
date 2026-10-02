@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import InteriorHeader from './InteriorHeader.astro';
 import type { BlogCopy } from '../data/blogCopy';
 
 interface Props {
@@ -31,7 +30,6 @@ const meta = {
 ---
 
 <Layout locale={locale} alternateUrl={alternateUrl} meta={meta}>
-  <InteriorHeader locale={locale} alternateUrl={alternateUrl} language={copy.language} />
   <main id="main" class="article-page">
     <a class="back-link" href={blogUrl}><span aria-hidden="true">← </span>{copy.article.back}</a>
     <article>

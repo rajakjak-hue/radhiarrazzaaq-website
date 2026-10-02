@@ -3,14 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import type { HomeCopy } from '../data/homeCopy';
 
 interface Props {
+  locale: 'en' | 'id';
   copy: HomeCopy;
   alternateUrl: string;
 }
 
-const { copy, alternateUrl } = Astro.props;
+const { locale, copy, alternateUrl } = Astro.props;
 const study = copy.caseStudy;
 const meta = {
-  title: 'Case Studies | Radhi Arrazzaaq',
+  title: `${locale === 'en' ? 'Case Studies' : 'Studi Kasus'} | Radhi Arrazzaaq`,
   description: study.intro,
   ogTitle: `${study.titleStart} ${study.titleHighlight} | Radhi Arrazzaaq`,
   ogDescription: study.intro,
@@ -18,21 +19,8 @@ const meta = {
 };
 ---
 
-<Layout locale='en' alternateUrl={alternateUrl} meta={meta}>
+<Layout locale={locale} alternateUrl={alternateUrl} meta={meta}>
   <div class='page-shell'>
-    <header class='site-header'>
-      <a class='brand' href='/' aria-label='Radhi Arrazzaaq, home'>Radhi.</a>
-      <nav aria-label='Explore'>
-        <a href='/work/' aria-current='page'>Case Studies</a>
-        <a href='/blog/'>Blog</a>
-        <a href='/#enquiry-open'>Contact</a>
-      </nav>
-      <div class='language-placeholder' role='group' aria-label='Language'>
-        <span aria-current='page'>EN</span>
-        <span aria-hidden='true'>/</span>
-        <button type='button' disabled aria-label='Indonesian version unavailable for now'>ID</button>
-      </div>
-    </header>
 
     <main id='main'>
       <article aria-labelledby='case-title'>
@@ -44,12 +32,12 @@ const meta = {
 
         <div class='case-grid'>
           <section class='case-story' aria-labelledby='challenge-title'>
-            <h2 id='challenge-title'>The Challenge</h2>
+            <h2 id='challenge-title'>{locale === 'en' ? 'The Challenge' : 'Tantangannya'}</h2>
             <p>{study.challenge}</p>
           </section>
 
           <section class='case-story' aria-labelledby='approach-title'>
-            <h2 id='approach-title'>What I Did</h2>
+            <h2 id='approach-title'>{locale === 'en' ? 'What I Did' : 'Yang Saya Lakukan'}</h2>
             <p>{study.approach}</p>
             <ul class='channels' aria-label={study.channelsLabel}>
               {study.channels.map(channel => <li>{channel}</li>)}
@@ -60,7 +48,7 @@ const meta = {
         <section class='role' aria-labelledby='work-title'>
           <div>
             <p class='eyebrow'>{study.roleEyebrow}</p>
-            <h2 id='work-title'>The Work</h2>
+            <h2 id='work-title'>{locale === 'en' ? 'The Work' : 'Pekerjaannya'}</h2>
             <p class='role-summary'>{study.roleTitle}</p>
           </div>
           <ol>
@@ -71,7 +59,7 @@ const meta = {
         <section class='results' aria-labelledby='outcome-title'>
           <div class='results-heading'>
             <p class='eyebrow'>{study.resultsLabel}</p>
-            <h2 id='outcome-title'>The Outcome</h2>
+            <h2 id='outcome-title'>{locale === 'en' ? 'The Outcome' : 'Hasilnya'}</h2>
             <p>{study.resultsNote}</p>
           </div>
           <dl>
