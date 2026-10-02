@@ -18,7 +18,7 @@ Last updated: 2 October 2026 (Asia/Jakarta)
 - Show a compact four-step lead flow beneath the headline: `Paid Ads`, `Lead Qualification`, `Follow-Up`, `Trial Booking`. It should guide attention toward the primary CTA.
 - Do not show the earlier subtitle or its tutoring and language-course audience phrase on the English homepage.
 - Do not show a location line in the hero.
-- Navigation labels: `Case Studies` and `Working Together`. Their routes remain `/work/` and `/how-i-work/`, but the header labels are temporarily non-clickable. Keep both easy to read.
+- English header navigation: `Case Studies` links to `/work/`; `Blog` links to `/blog/`; `Contact` opens the homepage enquiry flow. Keep all three easy to read.
 - Working Together page H1: `How We’ll Work Together`.
 - Primary CTA: `Discuss Your Lead Flow`.
 - Do not show supporting copy beneath the CTA or the former three-item services row.
@@ -26,13 +26,13 @@ Last updated: 2 October 2026 (Asia/Jakarta)
 
 ## Homepage scope
 
-The homepage must stay focused and contain only these three functional content areas:
+The homepage stays focused on the hero and primary enquiry CTA. Its header provides three paths:
 
-1. Contact through the primary CTA.
-2. Case Studies.
-3. Working Together.
+1. Case Studies.
+2. Blog.
+3. Contact through the existing enquiry flow.
 
-The homepage should not link to the blog or individual blog posts.
+The Working Together page remains available at `/how-i-work/` without a header link.
 
 ## Case study structure
 
@@ -48,10 +48,9 @@ The homepage should not link to the blog or individual blog posts.
 
 ## Blog relationship
 
-- The blog is a separate content experience from the homepage.
-- Visitors must not be able to navigate from the homepage to the blog.
-- Visitors on the blog or an individual blog post may navigate back to the homepage.
-- Blog URLs and any blog navigation structure will be finalized by the Designer.
+- The blog is a separate content experience reached through the English header.
+- Visitors on the blog or an individual blog post may navigate back to the homepage, Case Studies, or Contact.
+- Blog index and article pages use the site's light editorial palette, Newsreader headings, Source Sans 3 body text, blue links, and yellow accents in both languages.
 
 ## Editorial direction
 

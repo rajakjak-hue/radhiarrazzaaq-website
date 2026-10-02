@@ -21,8 +21,9 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
     {isDirectionTest ? <header class='site-header'>
       <a class='home-brand' href='/' aria-label='Radhi Arrazzaaq, home'>Radhi.</a>
       <nav class='site-links' aria-label='Explore'>
-        <span aria-disabled='true'>Case Studies</span>
-        <span aria-disabled='true'>Working Together</span>
+        <a href='/work/'>Case Studies</a>
+        <a href='/blog/'>Blog</a>
+        <a href='/#enquiry-open' aria-haspopup='dialog' data-enquiry-trigger>Contact</a>
       </nav>
       <div class='language-placeholder' role='group' aria-label='Language'>
         <span aria-current='page'>EN</span>
@@ -54,7 +55,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
         <li><span>04</span><strong>Trial Booking</strong></li>
       </ol>}
       <div class='links'>
-        <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog'>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>
+        <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog' data-enquiry-trigger>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>
         {!isDirectionTest && <a class='button secondary workflow-button' href={locale === 'en' ? '/how-i-work/' : '/id/how-i-work/'}>{copy.hero.workflow}</a>}
       </div>
     </main>}
@@ -156,14 +157,20 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
     send.href = 'https://wa.me/6282273612856?text=' + encodeURIComponent(message);
     show('confirm');
   }
-  document.querySelector('#enquiry-open')!.addEventListener('click', event => {
-    event.preventDefault();
+  function openEnquiry() {
     history = [];
     custom.value = '';
     custom.setCustomValidity('');
     dialog.showModal();
     show('start', false);
+  }
+  document.querySelectorAll<HTMLAnchorElement>('[data-enquiry-trigger]').forEach(trigger => {
+    trigger.addEventListener('click', event => {
+      event.preventDefault();
+      openEnquiry();
+    });
   });
+  if (window.location.pathname === '/' && window.location.hash === '#enquiry-open') openEnquiry();
   document.querySelector('#enquiry-close')!.addEventListener('click', () => dialog.close());
   document.querySelector('#choose-paid')!.addEventListener('click', () => show('issue'));
   dialog.querySelectorAll<HTMLButtonElement>('[data-other]').forEach(button => button.addEventListener('click', () => show('custom')));
@@ -363,7 +370,8 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
   }
   .direction-test .home-brand:hover { color: var(--blue); }
   .direction-test .site-links { grid-column: 1 / -1; grid-row: 2; display: flex; align-items: center; justify-content: center; gap: clamp(14px, 4vw, 28px); }
-  .direction-test .site-links span { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: 18px; font-weight: 700; white-space: nowrap; cursor: not-allowed; }
+  .direction-test .site-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue); font-size: 18px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .direction-test .site-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .direction-test .language-placeholder { grid-column: 2; grid-row: 1; display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 14px; font-weight: 700; letter-spacing: .08em; }
   .direction-test .language-placeholder span[aria-current='page'] { color: var(--ink); border-bottom: 2px solid var(--blue); padding: 4px 0; }
   .direction-test .language-placeholder button { margin: 0; padding: 4px 0; border: 0; background: none; color: var(--muted); font: inherit; letter-spacing: inherit; opacity: .55; cursor: not-allowed; }
@@ -511,7 +519,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
     .direction-test { padding-bottom: max(54px, env(safe-area-inset-bottom)); }
     .direction-test .site-header { grid-template-columns: minmax(0, 1fr) auto auto; width: min(1120px, 100%); gap: 24px; }
     .direction-test .site-links { grid-column: 2; grid-row: 1; }
-    .direction-test .site-links span { min-height: 44px; }
+    .direction-test .site-links a { min-height: 44px; }
     .direction-test .language-placeholder { grid-column: 3; grid-row: 1; }
     .direction-test main {
       min-height: 0;
@@ -537,7 +545,7 @@ const isDirectionTest = locale === 'en' && !showPortfolio;
   @media (max-width: 380px) {
     .direction-test .home-brand { font-size: 15px; }
     .direction-test .site-links { gap: 10px; }
-    .direction-test .site-links span { font-size: 16px; }
+    .direction-test .site-links a { font-size: 16px; }
     .direction-test .hero-title { font-size: 49px; }
   }
   @media (max-height: 620px) and (max-width: 760px) {

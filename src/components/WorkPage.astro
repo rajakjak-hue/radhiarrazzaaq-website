@@ -23,8 +23,9 @@ const meta = {
     <header class='site-header'>
       <a class='brand' href='/' aria-label='Radhi Arrazzaaq, home'>Radhi.</a>
       <nav aria-label='Explore'>
-        <span aria-current='page' aria-disabled='true'>Case Studies</span>
-        <span aria-disabled='true'>Working Together</span>
+        <a href='/work/' aria-current='page'>Case Studies</a>
+        <a href='/blog/'>Blog</a>
+        <a href='/#enquiry-open'>Contact</a>
       </nav>
       <div class='language-placeholder' role='group' aria-label='Language'>
         <span aria-current='page'>EN</span>
@@ -85,12 +86,13 @@ const meta = {
 <style>
   .page-shell { width: min(1180px, 100%); margin: 0 auto; padding: 10px clamp(18px, 4vw, 56px) 96px; font-family: 'Source Sans 3', Arial, sans-serif; }
   .site-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0 12px; min-height: 44px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-  .brand, .site-header nav span { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+  .brand, .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
   .brand { color: var(--ink); font-size: 16px; font-weight: 700; letter-spacing: .01em; }
   .brand:hover { color: var(--blue); }
   .site-header nav { grid-column: 1 / -1; grid-row: 2; display: flex; align-items: center; justify-content: center; gap: clamp(14px, 4vw, 28px); }
-  .site-header nav span { min-height: 44px; color: var(--muted); font-size: 18px; font-weight: 700; white-space: nowrap; cursor: not-allowed; }
-  .site-header nav span[aria-current='page'] { color: var(--ink); }
+  .site-header nav a { min-height: 44px; color: var(--blue); font-size: 18px; font-weight: 700; white-space: nowrap; }
+  .site-header nav a:hover, .site-header nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 4px; }
+  .site-header nav a[aria-current='page'] { text-decoration-color: var(--accent-strong); text-decoration-thickness: 2px; }
   .language-placeholder { grid-column: 2; grid-row: 1; display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 14px; font-weight: 700; letter-spacing: .08em; }
   .language-placeholder span[aria-current='page'] { color: var(--ink); border-bottom: 2px solid var(--blue); padding: 4px 0; }
   .language-placeholder button { margin: 0; padding: 4px 0; border: 0; background: none; color: var(--muted); font: inherit; letter-spacing: inherit; opacity: .55; cursor: not-allowed; }
@@ -123,7 +125,7 @@ const meta = {
   @media (min-width: 761px) {
     .site-header { grid-template-columns: minmax(0, 1fr) auto auto; gap: 24px; }
     .site-header nav { grid-column: 2; grid-row: 1; }
-    .site-header nav span { min-height: 44px; }
+    .site-header nav a { min-height: 44px; }
     .language-placeholder { grid-column: 3; grid-row: 1; }
   }
   @media (max-width: 760px) {
@@ -138,6 +140,6 @@ const meta = {
   @media (max-width: 380px) {
     .brand { font-size: 15px; }
     .site-header nav { gap: 10px; }
-    .site-header nav span { font-size: 16px; }
+    .site-header nav a { font-size: 16px; }
   }
 </style>
