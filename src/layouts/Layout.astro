@@ -20,20 +20,26 @@ const alternateHref = new URL(alternateUrl, siteUrl).href;
 const alternateLocale = locale === 'en' ? 'id' : 'en';
 const ogLocale = locale === 'en' ? 'en_US' : 'id_ID';
 const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isFocusedEnglishPage = locale === 'en' && ['/', '/work', '/how-i-work'].includes(currentPath);
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} class:list={{ 'focused-english': isFocusedEnglishPage }}>
   <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href='/mark.svg' />
     <title>{meta.title}</title>
     <meta name='description' content={meta.description} />
-    <meta name='theme-color' content='#000000' />
+    <meta name='theme-color' content={isFocusedEnglishPage ? '#f7f5ee' : '#000000'} />
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-    <link href='https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap' rel='stylesheet' />
+    {isFocusedEnglishPage ? (
+      <link href='https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Source+Sans+3:wght@400;500;600;700&display=swap' rel='stylesheet' />
+    ) : (
+      <link href='https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap' rel='stylesheet' />
+    )}
     <link rel='canonical' href={canonicalUrl} />
     <link rel='alternate' hreflang={alternateLocale} href={alternateHref} />
     <link rel='sitemap' href='/sitemap-index.xml' />
@@ -47,6 +53,13 @@ const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
     <meta name='twitter:card' content='summary' />
     <meta name='twitter:title' content={meta.ogTitle} />
     <meta name='twitter:description' content={meta.ogDescription} />
+    <script is:inline>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NGTCKF93');
+    </script>
     <script async src='https://www.googletagmanager.com/gtag/js?id=G-20488DPLDS'></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
@@ -55,9 +68,14 @@ const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
       gtag('config', 'G-20488DPLDS');
     </script>
   </head>
-  <body><a class='skip-link' href='#main'>{meta.skipLink}</a><slot /></body>
+  <body>
+    <noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-NGTCKF93' height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
+    <a class='skip-link' href='#main'>{meta.skipLink}</a><slot />
+  </body>
 </html>
 <style is:global>
   body { font-family: Arial, Helvetica, sans-serif; }
   :root{color-scheme:dark;--paper:#000000;--ink:#f4f6fa;--muted:#a5afbd;--accent:#EAD971;--blue:#59BAF1;--line:#243746;color:var(--ink);background:var(--paper);font-family:Arial,Helvetica,sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%}a{color:inherit}a:focus-visible{outline:2px solid var(--blue);outline-offset:6px}.skip-link{position:absolute;top:-80px;left:16px;padding:12px;background:var(--accent);color:var(--paper);z-index:10}.skip-link:focus{top:12px}
+  :root.focused-english{color-scheme:light;--paper:#f7f5ee;--surface:#eeece4;--ink:#192126;--muted:#5d686d;--accent:#f0d65e;--accent-strong:#b49b36;--blue:#245b78;--blue-deep:#19445d;--line:#d6dbd9;font-family:'Source Sans 3',Arial,sans-serif}
+  :root.focused-english .skip-link{color:var(--ink)}
 </style>

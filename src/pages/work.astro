@@ -1,0 +1,7 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import WorkPage from '../components/WorkPage.astro';
+import { homeCopy } from '../data/homeCopy';
+---
+
+<WorkPage copy={homeCopy.en} alternateUrl={getRelativeLocaleUrl('id', 'portfolio')} />

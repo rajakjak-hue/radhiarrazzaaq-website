@@ -13,30 +13,49 @@ interface Props {
 
 const { locale, copy, alternateUrl, showPortfolio = false } = Astro.props;
 const alternateLocale = locale === 'en' ? 'id' : 'en';
+const isDirectionTest = locale === 'en' && !showPortfolio;
 ---
 
 <Layout locale={locale} alternateUrl={alternateUrl} meta={copy.meta}>
-  <div class='page'>
-    <nav class='language-switch' aria-label={copy.language.navLabel}>
+  <div class:list={['page', { 'direction-test': isDirectionTest }]}>
+    {isDirectionTest ? <header class='site-header'>
+      <a class='home-brand' href='/' aria-label='Radhi Arrazzaaq, home'>Radhi.</a>
+      <nav class='site-links' aria-label='Explore'>
+        <span aria-disabled='true'>Case Studies</span>
+        <span aria-disabled='true'>Working Together</span>
+      </nav>
+      <div class='language-placeholder' role='group' aria-label='Language'>
+        <span aria-current='page'>EN</span>
+        <span aria-hidden='true'>/</span>
+        <button type='button' disabled aria-label='Indonesian version unavailable for now'>ID</button>
+      </div>
+    </header> : <nav class='language-switch' aria-label={copy.language.navLabel}>
       <span aria-current='page'>{locale.toUpperCase()}</span>
       <a href={alternateUrl} hreflang={alternateLocale} lang={alternateLocale} aria-label={alternateLocale === 'id' ? copy.language.indonesian : copy.language.english}>{alternateLocale.toUpperCase()}</a>
-    </nav>
+    </nav>}
     {!showPortfolio && <main id='main'>
       <div class='portrait'>
-        <Image src={portrait} alt='Radhi Arrazzaaq' widths={[240, 480, 640]} sizes='(max-height: 600px) 110px, (max-width: 600px) 160px, 220px' width={640} format='webp' loading='eager' fetchpriority='high' />
+        <Image src={portrait} alt='Radhi Arrazzaaq' widths={[240, 480, 640]} sizes={isDirectionTest ? '(max-width: 760px) 80px, 38vw' : '(max-height: 600px) 110px, (max-width: 600px) 160px, 220px'} width={640} format='webp' loading='eager' fetchpriority='high' />
       </div>
-      <p class='identity'>{copy.hero.firstName} {copy.hero.lastName}</p>
-      <h1><span>{copy.hero.description}</span><span>{copy.hero.descriptionSecond}</span></h1>
-      <p class='location'><span aria-hidden='true'>📍</span> {copy.hero.location}</p>
-      <nav class='social-links' aria-label={copy.hero.connectLabel}>
-        <a href='https://www.instagram.com/radhiarrazzaaq/' target='_blank' rel='noopener noreferrer'>{copy.hero.instagram}</a>
-        <a href='https://www.youtube.com/@radhiarrazzaaq' target='_blank' rel='noopener noreferrer'>{copy.hero.youtube}</a>
-        <a href={locale === 'en' ? '/blog/' : '/id/blog/'}>{copy.hero.blog}</a>
-        <a href='mailto:rajakjak@gmail.com'>{copy.hero.email}</a>
-      </nav>
+      {isDirectionTest ? <h1 class='hero-title'>Let’s Grow Your <mark>Trial Bookings</mark></h1> : <>
+        <p class='identity'>{copy.hero.firstName} {copy.hero.lastName}</p>
+        <h1><span>{copy.hero.description}</span><span>{copy.hero.descriptionSecond}</span></h1>
+        <nav class='social-links' aria-label={copy.hero.connectLabel}>
+          <a href='https://www.instagram.com/radhiarrazzaaq/' target='_blank' rel='noopener noreferrer'>{copy.hero.instagram}</a>
+          <a href='https://www.youtube.com/@radhiarrazzaaq' target='_blank' rel='noopener noreferrer'>{copy.hero.youtube}</a>
+          <a href={locale === 'en' ? '/blog/' : '/id/blog/'}>{copy.hero.blog}</a>
+          <a href='mailto:rajakjak@gmail.com'>{copy.hero.email}</a>
+        </nav>
+      </>}
+      {isDirectionTest && <ol class='lead-flow' aria-label='From paid ads to trial bookings'>
+        <li><span>01</span><strong>Paid Ads</strong></li>
+        <li><span>02</span><strong>Lead Qualification</strong></li>
+        <li><span>03</span><strong>Follow-Up</strong></li>
+        <li><span>04</span><strong>Trial Booking</strong></li>
+      </ol>}
       <div class='links'>
         <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog'>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>
-        <a class='button secondary workflow-button' href={locale === 'en' ? '/how-i-work/' : '/id/how-i-work/'}>{copy.hero.workflow}</a>
+        {!isDirectionTest && <a class='button secondary workflow-button' href={locale === 'en' ? '/how-i-work/' : '/id/how-i-work/'}>{copy.hero.workflow}</a>}
       </div>
     </main>}
     {showPortfolio && <>
@@ -80,7 +99,7 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     <footer>&copy; {new Date().getFullYear()} Radhi Arrazzaaq <span aria-hidden='true'>&middot;</span> {copy.footer}</footer>
     </>}
   </div>
-  <dialog id='enquiry' aria-labelledby='enquiry-title' data-copy={JSON.stringify(copy.enquiry)}>
+  <dialog id='enquiry' class:list={{ 'direction-dialog': isDirectionTest }} aria-labelledby='enquiry-title' data-copy={JSON.stringify(copy.enquiry)}>
     <div class='dialog-heading'><p class='eyebrow'>{copy.enquiry.eyebrow}</p><button id='enquiry-close' class='close' aria-label={copy.enquiry.closeLabel} type='button'>&times;</button></div>
     <h2 id='enquiry-title' tabindex='-1'>{copy.enquiry.headings.start}</h2>
     <section data-step='start' class='choices'>
@@ -218,7 +237,6 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
   h1 { max-width: 650px; margin: 0 auto; font: 700 clamp(28px, 4vw, 38px)/1.15 'Manrope', Arial, sans-serif; letter-spacing: -1.2px; text-wrap: balance; }
   h1 span { display: block; }
   h1 span + span { margin-top: 10px; color: var(--blue); font-size: clamp(17px, 2.2vw, 22px); font-weight: 600; letter-spacing: -.4px; }
-  .location { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 14px 0 18px; color: var(--muted); font-size: 15px; }
   .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-bottom: 20px; }
   .social-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 8px 15px; border: 1px solid var(--line); border-radius: 999px; color: var(--blue); font: 600 14px/1 'Manrope', Arial, sans-serif; text-decoration: none; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
   .social-links a:hover { transform: translateY(-2px); border-color: var(--blue); background: #102333; }
@@ -301,5 +319,243 @@ const alternateLocale = locale === 'en' ? 'id' : 'en';
     .eyebrow { margin: 10px 0 6px; }
     .description { margin: 8px 0 12px; }
     .links { gap: 6px; }
+  }
+  /* English homepage experiment. Mobile rules come first. */
+  .direction-test {
+    color-scheme: light;
+    --paper: #f7f5ee;
+    --surface: #eeece4;
+    --ink: #192126;
+    --muted: #5d686d;
+    --blue: #245b78;
+    --blue-deep: #19445d;
+    --accent: #f0d65e;
+    --accent-strong: #b49b36;
+    --line: #d6dbd9;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Sans 3', Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding: max(10px, env(safe-area-inset-top)) clamp(18px, 4vw, 56px) max(70px, env(safe-area-inset-bottom));
+  }
+  .direction-test .site-header {
+    width: min(100%, 1120px);
+    min-height: 44px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 12px;
+  }
+  .direction-test .home-brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    text-decoration: none;
+  }
+  .direction-test .home-brand:hover { color: var(--blue); }
+  .direction-test .site-links { grid-column: 1 / -1; grid-row: 2; display: flex; align-items: center; justify-content: center; gap: clamp(14px, 4vw, 28px); }
+  .direction-test .site-links span { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: 18px; font-weight: 700; white-space: nowrap; cursor: not-allowed; }
+  .direction-test .language-placeholder { grid-column: 2; grid-row: 1; display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 14px; font-weight: 700; letter-spacing: .08em; }
+  .direction-test .language-placeholder span[aria-current='page'] { color: var(--ink); border-bottom: 2px solid var(--blue); padding: 4px 0; }
+  .direction-test .language-placeholder button { margin: 0; padding: 4px 0; border: 0; background: none; color: var(--muted); font: inherit; letter-spacing: inherit; opacity: .55; cursor: not-allowed; }
+  .direction-test main {
+    flex: 1 0 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'portrait'
+      'headline'
+      'support'
+      'links';
+    align-content: center;
+    justify-items: center;
+    row-gap: 0;
+    width: min(100%, 620px);
+    max-width: none;
+    padding: 10px 0 0;
+  }
+  .direction-test .portrait {
+    grid-area: portrait;
+    width: 64px;
+    max-width: none;
+    aspect-ratio: 5 / 6;
+    margin: 0 auto 14px;
+    border: 1px solid #cbd1d0;
+  }
+  .direction-test .portrait::after {
+    right: -6px;
+    bottom: -6px;
+    width: 45%;
+    height: 6px;
+    background: var(--blue);
+  }
+  .direction-test .portrait img { filter: saturate(.96) contrast(.98); }
+  .direction-test .hero-title {
+    grid-area: headline;
+    max-width: 700px;
+    margin: 0 auto;
+    font: 700 clamp(49px, 13vw, 63px)/.99 'Source Sans 3', Arial, sans-serif;
+    letter-spacing: -.055em;
+    text-wrap: balance;
+  }
+  .direction-test .hero-title mark {
+    color: inherit;
+    background: linear-gradient(transparent 58%, var(--accent) 58%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .direction-test .lead-flow {
+    grid-area: support;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
+    width: min(100%, 520px);
+    margin: 24px auto 12px;
+    padding: 0;
+    list-style: none;
+  }
+  .direction-test .lead-flow li { padding: 10px 2px 0; border-top: 1px solid var(--line); text-align: left; }
+  .direction-test .lead-flow li:last-of-type { border-color: var(--accent-strong); }
+  .direction-test .lead-flow li span { display: block; margin-bottom: 4px; color: var(--blue); font-size: 13px; font-weight: 700; letter-spacing: .1em; }
+  .direction-test .lead-flow li strong { color: var(--muted); font-size: 18px; font-weight: 600; line-height: 1.2; }
+  .direction-test .lead-flow li:last-of-type strong { color: var(--ink); }
+  .direction-test .lead-flow::after { content: '↓'; grid-column: 1 / -1; color: var(--blue); font-size: 23px; line-height: 1; text-align: center; }
+  .direction-test .links {
+    grid-area: links;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+  }
+  .direction-test .links > .primary {
+    width: 100%;
+    max-width: 425px;
+    min-height: 62px;
+    justify-content: space-between;
+    padding: 10px 12px 10px 18px;
+    border-color: var(--blue-deep);
+    background: var(--blue-deep);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    box-shadow: none;
+  }
+  .direction-test .links > .primary:hover,
+  .direction-test .links > .primary:focus-visible {
+    border-color: var(--blue-deep);
+    background: #fffefa;
+    color: var(--blue-deep);
+    transform: none;
+  }
+  .direction-test .links > .primary span { display: grid; place-items: center; width: 35px; height: 35px; border: 1px solid currentColor; border-radius: 50%; font-size: 21px; }
+  .direction-dialog {
+    color-scheme: light;
+    --surface: #eeece4;
+    --ink: #192126;
+    --muted: #5d686d;
+    --blue: #245b78;
+    --blue-deep: #19445d;
+    --line: #d6dbd9;
+    width: min(560px, calc(100% - 32px));
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--blue);
+    border-radius: 8px;
+    background: #fffefa;
+    color: var(--ink);
+    font-family: 'Source Sans 3', Arial, sans-serif;
+    box-shadow: 0 18px 54px #10202b24;
+  }
+  .direction-dialog::backdrop { background: #14232b88; }
+  .direction-dialog .eyebrow { font: 600 18px/1.2 'Source Sans 3', Arial, sans-serif; }
+  .direction-dialog h2 {
+    margin: 8px 0 20px;
+    color: var(--ink);
+    font: 700 38px/1.08 'Source Sans 3', Arial, sans-serif;
+    letter-spacing: -.035em;
+  }
+  .direction-dialog .dialog-copy,
+  .direction-dialog label { color: var(--muted); font-size: 19px; }
+  .direction-dialog .dialog-note { font-size: 16px; }
+  .direction-dialog .back { font-size: 19px; }
+  .direction-dialog .close { font-size: 35px; }
+  .direction-dialog textarea {
+    border-color: var(--line);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--ink);
+    font: 20px/1.5 'Source Sans 3', Arial, sans-serif;
+  }
+  .direction-dialog #message-preview { background: var(--surface); color: var(--ink); font-size: 20px; }
+  .direction-dialog .button { font: 700 20px/1.25 'Source Sans 3', Arial, sans-serif; }
+  .direction-dialog .button.primary { border-color: var(--blue); background: var(--blue); color: #fff; }
+  .direction-dialog .button.primary:hover { border-color: var(--blue-deep); background: var(--blue-deep); }
+  .direction-dialog .button.secondary { border-color: var(--line); border-radius: 4px; background: transparent; color: var(--blue); }
+  .direction-dialog .button.secondary:hover { border-color: var(--blue); background: #f2f7f9; }
+  .direction-dialog .close,
+  .direction-dialog .back { color: var(--blue); }
+  @media (min-width: 761px) {
+    .direction-test { padding-bottom: max(54px, env(safe-area-inset-bottom)); }
+    .direction-test .site-header { grid-template-columns: minmax(0, 1fr) auto auto; width: min(1120px, 100%); gap: 24px; }
+    .direction-test .site-links { grid-column: 2; grid-row: 1; }
+    .direction-test .site-links span { min-height: 44px; }
+    .direction-test .language-placeholder { grid-column: 3; grid-row: 1; }
+    .direction-test main {
+      min-height: 0;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'portrait'
+        'headline'
+        'support'
+        'links';
+      align-content: center;
+      width: min(900px, 100%);
+      padding: 10px 0 0;
+    }
+    .direction-test .portrait {
+      width: min(15vw, 118px, 18vh);
+      margin: 0 auto 20px;
+    }
+    .direction-test .hero-title { font-size: clamp(72px, 7.5vw, 95px); }
+    .direction-test .lead-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(100%, 800px); gap: 18px; margin: 34px auto 14px; }
+    .direction-test .lead-flow::after { grid-column: 1 / -1; }
+    .direction-test .links { max-width: 32rem; }
+  }
+  @media (max-width: 380px) {
+    .direction-test .home-brand { font-size: 15px; }
+    .direction-test .site-links { gap: 10px; }
+    .direction-test .site-links span { font-size: 16px; }
+    .direction-test .hero-title { font-size: 49px; }
+  }
+  @media (max-height: 620px) and (max-width: 760px) {
+    .direction-test { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+    .direction-test .portrait { width: 52px; margin-bottom: 9px; }
+    .direction-test .hero-title { font-size: 46px; }
+    .direction-test .lead-flow { margin: 14px auto 8px; gap: 5px 12px; }
+    .direction-test .lead-flow li { padding-top: 6px; }
+    .direction-test .lead-flow li strong { font-size: 15px; }
+    .direction-test .links { gap: 8px; }
+    .direction-test .links > .primary { min-height: 58px; }
+  }
+  @media (max-height: 620px) and (min-width: 761px) {
+    .direction-test .portrait { width: min(13vw, 90px, 16vh); margin-bottom: 12px; }
+    .direction-test .hero-title { font-size: clamp(62px, 6.25vw, 78px); }
+    .direction-test .lead-flow { margin: 20px auto 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .direction-test .links > .primary { transition: none; }
   }
 </style>

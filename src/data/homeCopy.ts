@@ -14,8 +14,8 @@ const englishHomeCopy = {
   hero: {
     firstName: 'Radhi',
     lastName: 'Arrazzaaq',
-    description: 'From Paid Ads to Trial Bookings',
-    descriptionSecond: 'For Tutoring & Language Courses',
+    description: 'Let’s Grow Your Trial Bookings',
+    descriptionSecond: 'Connecting paid ads, lead qualification, and follow-up for tutoring and language-course businesses.',
     location: 'Jakarta, Indonesia',
     connectLabel: 'Connect with Radhi',
     whatsapp: 'Discuss Your Lead Flow',
@@ -101,8 +101,8 @@ const indonesianHomeCopy: HomeCopy = {
   hero: {
     firstName: 'Radhi',
     lastName: 'Arrazzaaq',
-    description: 'Dari Iklan ke Booking Trial',
-    descriptionSecond: 'Untuk Bimbel & Kursus Bahasa',
+    description: 'Mari Tingkatkan Booking Trial Anda',
+    descriptionSecond: 'Menghubungkan iklan berbayar, kualifikasi lead, dan follow-up untuk bisnis bimbel dan kursus bahasa.',
     location: 'Jakarta, Indonesia',
     connectLabel: 'Hubungi Radhi',
     whatsapp: 'Bahas Alur Lead Bisnis Anda',

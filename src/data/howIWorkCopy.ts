@@ -1,6 +1,6 @@
 const englishHowIWorkCopy = {
   meta: {
-    title: 'How I Build Lead Flows | Radhi Arrazzaaq',
+    title: 'How We’ll Work Together | Radhi Arrazzaaq',
     description: 'See how I connect the offer, paid ads, lead capture, CS follow-up, and measurement to improve qualified trial bookings for education businesses.',
     ogTitle: 'From Paid Ads to Qualified Trial Bookings',
     ogDescription: 'A practical lead-generation method for tutoring and language-course businesses, from the first click through qualified trial booking.',
@@ -8,8 +8,8 @@ const englishHowIWorkCopy = {
   },
   language: { navLabel: 'Language', english: 'English', indonesian: 'Indonesian' },
   hero: {
-    eyebrow: 'HOW I WORK',
-    title: 'From Paid Ads to Trial Bookings',
+    eyebrow: 'WORKING TOGETHER',
+    title: 'How We’ll Work Together',
     intro: ['I connect the offer, campaign, lead capture, and follow-up.', 'The work does not stop at the ad account.'],
   },
   journey: {
@@ -58,7 +58,7 @@ export type HowIWorkCopy = typeof englishHowIWorkCopy;
 
 const indonesianHowIWorkCopy: HowIWorkCopy = {
   meta: {
-    title: 'Cara Saya Membangun Alur Lead | Radhi Arrazzaaq',
+    title: 'Bagaimana Kita Bekerja Sama | Radhi Arrazzaaq',
     description: 'Lihat cara saya menghubungkan penawaran, iklan berbayar, proses masuknya lead, follow-up CS, dan pengukuran untuk meningkatkan booking trial berkualitas pada bisnis edukasi.',
     ogTitle: 'Dari Iklan Berbayar ke Booking Trial',
     ogDescription: 'Metode lead generation yang praktis untuk bisnis bimbingan belajar dan kursus bahasa, dari klik pertama hingga booking trial berkualitas.',
@@ -66,8 +66,8 @@ const indonesianHowIWorkCopy: HowIWorkCopy = {
   },
   language: { navLabel: 'Bahasa', english: 'Bahasa Inggris', indonesian: 'Bahasa Indonesia' },
   hero: {
-    eyebrow: 'CARA SAYA BEKERJA',
-    title: 'Dari Iklan Berbayar ke Booking Trial',
+    eyebrow: 'BEKERJA SAMA',
+    title: 'Bagaimana Kita Bekerja Sama',
     intro: ['Saya menghubungkan penawaran, kampanye, proses masuknya lead, dan follow-up.', 'Pekerjaan saya tidak berhenti di akun iklan.'],
   },
   journey: {
