@@ -56,6 +56,8 @@ The Working Together page remains available at `/how-i-work/` without a header l
 
 ## Editorial direction
 
+- SEO positioning: Radhi Arrazzaaq helps tutoring and language-course businesses connect Google Ads and Meta Ads with lead qualification, CS follow-up, and qualified trial bookings. Avoid guarantees or unsupported credentials. Keep page metadata localized, and use the production origin from Astro configuration for canonical URLs, language alternates, and structured data.
+
 - Primary subject: how businesses can improve lead quality.
 - Raw material: Radhi's real stories, observations, and operating experience.
 - Distinctive territory: what happens after ads generate a lead, including qualification, WhatsApp conversations, CS follow-up, and trial bookings.

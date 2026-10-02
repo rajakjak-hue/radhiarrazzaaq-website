@@ -1,27 +1,22 @@
 ---
 import InteriorHeader from '../components/InteriorHeader.astro';
+import { createSiteSchema, type SeoMeta } from '../data/siteSeo';
 
 interface Props {
   locale: 'en' | 'id';
   alternateUrl: string;
-  meta: {
-    title: string;
-    description: string;
-    ogTitle: string;
-    ogDescription: string;
-    skipLink: string;
-    ogType?: 'website' | 'article';
-    publishedTime?: string;
-  };
+  meta: SeoMeta;
 }
 
 const { locale, alternateUrl, meta } = Astro.props;
-const siteUrl = 'https://radhiarrazzaaq.com';
+const siteUrl = Astro.site!.origin;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const alternateHref = new URL(alternateUrl, siteUrl).href;
 const alternateLocale = locale === 'en' ? 'id' : 'en';
 const ogLocale = locale === 'en' ? 'en_US' : 'id_ID';
 const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
+const defaultHref = locale === 'en' ? canonicalUrl : alternateHref;
+const structuredData = createSiteSchema(siteUrl, canonicalUrl, locale, meta);
 ---
 
 <!doctype html>
@@ -32,14 +27,18 @@ const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
     <link rel='icon' type='image/png' href='/favicon.png' />
     <title>{meta.title}</title>
     <meta name='description' content={meta.description} />
+    <meta name='author' content='Radhi Arrazzaaq' />
     <meta name='theme-color' content='#f7f5ee' />
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <link href='https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap' rel='stylesheet' />
     <link rel='canonical' href={canonicalUrl} />
+    <link rel='alternate' hreflang={locale} href={canonicalUrl} />
     <link rel='alternate' hreflang={alternateLocale} href={alternateHref} />
+    <link rel='alternate' hreflang='x-default' href={defaultHref} />
     <link rel='sitemap' href='/sitemap-index.xml' />
     <meta property='og:title' content={meta.ogTitle} />
+    <meta property='og:site_name' content='Radhi Arrazzaaq' />
     <meta property='og:description' content={meta.ogDescription} />
     <meta property='og:type' content={meta.ogType ?? 'website'} />
     <meta property='og:url' content={canonicalUrl} />
@@ -49,6 +48,7 @@ const alternateOgLocale = locale === 'en' ? 'id_ID' : 'en_US';
     <meta name='twitter:card' content='summary' />
     <meta name='twitter:title' content={meta.ogTitle} />
     <meta name='twitter:description' content={meta.ogDescription} />
+    <script type='application/ld+json' is:inline set:html={structuredData} />
     <script is:inline>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

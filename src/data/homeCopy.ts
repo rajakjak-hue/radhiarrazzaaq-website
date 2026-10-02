@@ -1,9 +1,9 @@
 const englishHomeCopy = {
   meta: {
-    title: 'Education Lead Generation | Radhi Arrazzaaq',
-    description: 'I help tutoring and language-course businesses connect paid ads, lead quality, CS follow-up, and qualified trial bookings.',
+    title: 'Google & Meta Ads for Education | Radhi Arrazzaaq',
+    description: 'I help tutoring and language-course businesses connect Google Ads, Meta Ads, lead qualification, and follow-up to improve qualified trial bookings.',
     ogTitle: 'From Paid Ads to Qualified Trial Bookings',
-    ogDescription: 'Build a clearer lead flow for your tutoring or language-course business, from paid acquisition through qualified trial booking.',
+    ogDescription: 'Work with Radhi Arrazzaaq to connect Google Ads and Meta Ads with lead qualification, follow-up, and trial bookings for your education business.',
     skipLink: 'Skip to content',
   },
   language: {
@@ -91,10 +91,10 @@ export type HomeCopy = typeof englishHomeCopy;
 
 const indonesianHomeCopy: HomeCopy = {
   meta: {
-    title: 'Lead Generation Bisnis Edukasi | Radhi Arrazzaaq',
-    description: 'Saya membantu bisnis bimbingan belajar dan kursus bahasa menghubungkan iklan berbayar, kualitas lead, follow-up CS, dan booking trial berkualitas.',
+    title: 'Google & Meta Ads untuk Bisnis Edukasi | Radhi Arrazzaaq',
+    description: 'Saya membantu bisnis bimbel dan kursus bahasa menghubungkan Google Ads, Meta Ads, kualifikasi lead, dan tindak lanjut untuk booking trial berkualitas.',
     ogTitle: 'Dari Iklan Berbayar ke Booking Trial Berkualitas',
-    ogDescription: 'Bangun alur lead yang lebih jelas untuk bisnis bimbingan belajar atau kursus bahasa, dari iklan berbayar hingga booking trial berkualitas.',
+    ogDescription: 'Bangun alur lead bisnis edukasi bersama Radhi Arrazzaaq melalui Google Ads, Meta Ads, kualifikasi lead, dan tindak lanjut hingga booking trial.',
     skipLink: 'Langsung ke konten',
   },
   language: {

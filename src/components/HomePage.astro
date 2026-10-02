@@ -13,9 +13,16 @@ interface Props {
 
 const { locale, copy, alternateUrl, showPortfolio = false } = Astro.props;
 const isDirectionTest = !showPortfolio;
+const pageMeta = showPortfolio ? {
+  ...copy.meta,
+  title: `${copy.caseStudy.titleStart} ${copy.caseStudy.titleHighlight} | Radhi Arrazzaaq`,
+  description: copy.caseStudy.intro,
+  ogTitle: `${copy.caseStudy.titleStart} ${copy.caseStudy.titleHighlight}`,
+  ogDescription: copy.caseStudy.intro,
+} : copy.meta;
 ---
 
-<Layout locale={locale} alternateUrl={alternateUrl} meta={copy.meta}>
+<Layout locale={locale} alternateUrl={alternateUrl} meta={pageMeta}>
   <div class:list={['page', { 'direction-test': isDirectionTest }]}>
     {!showPortfolio && <main id='main'>
       <div class='portrait'>
@@ -40,10 +47,10 @@ const isDirectionTest = !showPortfolio;
       </div>
     </main>}
     {showPortfolio && <>
-    <section class='case-study' aria-labelledby='case-title'>
+    <section id='main' class='case-study' aria-labelledby='case-title'>
       <div class='case-heading' data-reveal>
         <p class='eyebrow'>{copy.caseStudy.eyebrow} <span aria-hidden='true'>&middot;</span> {copy.caseStudy.period}</p>
-        <h2 id='case-title'>{copy.caseStudy.titleStart} <em>{copy.caseStudy.titleHighlight}</em></h2>
+        <h1 id='case-title'>{copy.caseStudy.titleStart} <em>{copy.caseStudy.titleHighlight}</em></h1>
         <p class='case-intro'>{copy.caseStudy.intro}</p>
       </div>
 
@@ -240,9 +247,9 @@ const isDirectionTest = !showPortfolio;
   .case-study::before { content: ''; position: absolute; top: 0; left: 0; width: clamp(90px, 24%, 250px); height: 3px; background: var(--accent);  }
   .case-heading { max-width: 690px; }
   .case-heading .eyebrow { margin-top: 0; }
-  .case-heading h2 { margin: 0; font: 600 clamp(42px, 7vw, 72px)/1 var(--font-body); letter-spacing: -1px; }
-  .case-heading h2 em { font-style: normal; color: var(--blue); }
-  .case-heading h2::after { content: ''; display: block; width: min(100%, 430px); height: 1px; margin-top: 20px; background: linear-gradient(90deg, var(--accent), transparent); transform-origin: left; }
+  .case-heading h1 { max-width:none; margin: 0; font: 600 clamp(42px, 7vw, 72px)/1 var(--font-body); letter-spacing: -1px; }
+  .case-heading h1 em { font-style: normal; color: var(--blue); }
+  .case-heading h1::after { content: ''; display: block; width: min(100%, 430px); height: 1px; margin-top: 20px; background: linear-gradient(90deg, var(--accent), transparent); transform-origin: left; }
   .case-intro { max-width: 540px; margin: 16px 0 0; color: var(--muted); font-size: clamp(17px, 2vw, 20px); line-height: 1.5; }
   .case-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); gap: clamp(32px, 7vw, 90px); margin-top: clamp(38px, 6vw, 66px); }
   .case-story h3, .funnel h3 { margin: 0 0 10px; font: 600 24px/1.15 var(--font-body); color: var(--blue); letter-spacing: .3px; }
@@ -267,8 +274,8 @@ const isDirectionTest = !showPortfolio;
   footer span { margin: 0 6px; }
   :global(.motion-ready) [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
   :global(.motion-ready) [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
-  :global(.motion-ready) .case-heading h2::after { transform: scaleX(0); transition: transform .8s ease .25s; }
-  :global(.motion-ready) .case-heading.is-visible h2::after { transform: scaleX(1); }
+  :global(.motion-ready) .case-heading h1::after { transform: scaleX(0); transition: transform .8s ease .25s; }
+  :global(.motion-ready) .case-heading.is-visible h1::after { transform: scaleX(1); }
   @media (prefers-reduced-motion: reduce) {
     .button, .scroll-cue span, .results dl div, [data-reveal] { transition: none !important; }
     .button:hover, .scroll-cue:hover span, .results dl div:hover { transform: none; }
