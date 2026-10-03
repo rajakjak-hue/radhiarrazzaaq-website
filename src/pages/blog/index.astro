@@ -1,7 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
+import { siteAvailability } from '../../../siteAvailability.mjs';
 import BlogIndexPage from '../../components/BlogIndexPage.astro';
 import { blogCopy } from '../../data/blogCopy';
+
+if (!siteAvailability.blog) return Astro.redirect('/');
 
 const entries = (await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());

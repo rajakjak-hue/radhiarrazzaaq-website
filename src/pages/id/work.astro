@@ -1,7 +1,10 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { siteAvailability } from '../../../siteAvailability.mjs';
 import WorkPage from '../../components/WorkPage.astro';
 import { homeCopy } from '../../data/homeCopy';
+
+if (!siteAvailability.caseStudies) return Astro.redirect('/id/');
 ---
 
 <WorkPage locale='id' copy={homeCopy.id} alternateUrl={getRelativeLocaleUrl('en', 'work')} />

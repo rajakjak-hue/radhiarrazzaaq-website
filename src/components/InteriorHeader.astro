@@ -1,4 +1,6 @@
 ---
+import { siteAvailability } from '../../siteAvailability.mjs';
+
 interface Props {
   enquiryTrigger?: boolean;
   locale: 'en' | 'id';
@@ -19,8 +21,16 @@ const isWork = currentPath === `${prefix}/work`;
     Radhi.
   </a>
   <nav class='site-links' aria-label={locale === 'en' ? 'Explore' : 'Jelajahi'}>
-    <a href={`${prefix}/work/`} aria-current={isWork ? 'page' : undefined}>{locale === 'en' ? 'Case Studies' : 'Studi Kasus'}</a>
-    <a href={`${prefix}/blog/`} aria-current={isBlogIndex ? 'page' : undefined}>Blog</a>
+    {siteAvailability.caseStudies ? (
+      <a href={`${prefix}/work/`} aria-current={isWork ? 'page' : undefined}>{locale === 'en' ? 'Case Studies' : 'Studi Kasus'}</a>
+    ) : (
+      <span class='site-link-disabled' aria-disabled='true'>{locale === 'en' ? 'Case Studies' : 'Studi Kasus'}</span>
+    )}
+    {siteAvailability.blog ? (
+      <a href={`${prefix}/blog/`} aria-current={isBlogIndex ? 'page' : undefined}>Blog</a>
+    ) : (
+      <span class='site-link-disabled' aria-disabled='true'>Blog</span>
+    )}
     <a href={`${homeUrl}#enquiry-open`} aria-haspopup={enquiryTrigger ? 'dialog' : undefined} data-enquiry-trigger={enquiryTrigger || undefined}>{locale === 'en' ? 'Contact' : 'Kontak'}</a>
   </nav>
   <nav class="language-switcher" data-locale={locale} aria-label={locale === 'en' ? 'Language' : 'Bahasa'}>
@@ -71,7 +81,8 @@ const isWork = currentPath === `${prefix}/work`;
   .brand{display:inline-flex;align-items:center;min-height:44px;justify-self:start;color:var(--ink);font:700 16px/1.2 var(--font-body);letter-spacing:.01em;text-decoration:none}
   .brand:hover{color:var(--blue)}
   .site-links{display:flex;align-items:center;justify-content:center;gap:clamp(14px,3vw,28px)}
-  .site-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--blue);font:700 18px/1.2 var(--font-body);text-decoration:none;white-space:nowrap}
+  .site-links a,.site-link-disabled{display:inline-flex;align-items:center;min-height:44px;color:var(--blue);font:700 18px/1.2 var(--font-body);text-decoration:none;white-space:nowrap}
+  .site-link-disabled{color:var(--muted);opacity:.46;cursor:not-allowed;user-select:none}
   .site-links a:hover,.site-links a[aria-current='page']{text-decoration:underline;text-underline-offset:4px}
   .site-links a[aria-current='page']{text-decoration-color:var(--accent-strong);text-decoration-thickness:2px}
   .language-switcher{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:104px;padding:3px;border:1px solid var(--line);border-radius:999px;justify-self:end;background:var(--surface);font:700 14px/1.2 var(--font-body);letter-spacing:.08em;isolation:isolate}

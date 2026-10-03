@@ -1,9 +1,11 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { siteAvailability } from '../../../siteAvailability.mjs';
 import BlogPostPage from '../../components/BlogPostPage.astro';
 import { blogCopy } from '../../data/blogCopy';
 
 export async function getStaticPaths() {
+  if (!siteAvailability.blog) return [];
   const entries = await getCollection('blog', ({ data }) => !data.draft);
   const englishEntries = entries.filter((entry) => entry.data.lang === 'en');
 
