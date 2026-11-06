@@ -28,7 +28,14 @@ const pageMeta = showPortfolio ? {
       <div class='portrait'>
         <Image src={portrait} alt='Radhi Arrazzaaq' widths={[240, 480, 640]} sizes={isDirectionTest ? '(max-width: 760px) 80px, 38vw' : '(max-height: 600px) 110px, (max-width: 600px) 160px, 220px'} width={640} format='webp' loading='eager' fetchpriority='high' />
       </div>
-      {isDirectionTest ? <h1 class='hero-title'>{copy.hero.titleStart} <mark>{copy.hero.titleHighlight}</mark></h1> : <>
+      {isDirectionTest ? <>
+        <p class='identity'>{copy.hero.firstName} {copy.hero.lastName}</p>
+        <h1 class='hero-title'>{copy.hero.titleStart} <mark>{copy.hero.titleHighlight}</mark></h1>
+        <p class='description'>{copy.hero.description}</p>
+        <nav class='social-links' aria-label={copy.hero.connectLabel}>
+          <a href='mailto:rajakjak@gmail.com'>{copy.hero.email}</a>
+        </nav>
+      </> : <>
         <p class='identity'>{copy.hero.firstName} {copy.hero.lastName}</p>
         <h1><span>{copy.hero.description}</span><span>{copy.hero.descriptionSecond}</span></h1>
         <nav class='social-links' aria-label={copy.hero.connectLabel}>
@@ -42,7 +49,10 @@ const pageMeta = showPortfolio ? {
         {copy.hero.flowSteps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong></li>)}
       </ol>}
       <div class='links'>
-        <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog' data-enquiry-trigger>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>
+        {isDirectionTest ? <>
+          <a class='button primary' href={`https://wa.me/6282273612856?text=${encodeURIComponent(copy.hero.whatsappMessage)}`} target='_blank' rel='noopener noreferrer'>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>
+          <a class='button secondary' href={`https://wa.me/6282273612856?text=${encodeURIComponent(copy.hero.consultMessage)}`} target='_blank' rel='noopener noreferrer'>{copy.hero.consult} <span aria-hidden='true'>&#8599;</span></a>
+        </> : <a id='enquiry-open' class='button primary' href='https://wa.me/6282273612856' target='_blank' rel='noopener noreferrer' aria-haspopup='dialog' data-enquiry-trigger>{copy.hero.whatsapp} <span aria-hidden='true'>&#8599;</span></a>}
         {!isDirectionTest && <a class='button secondary workflow-button' href={locale === 'en' ? '/how-i-work/' : '/id/how-i-work/'}>{copy.hero.workflow}</a>}
       </div>
     </main>}
