@@ -1,6 +1,6 @@
 const englishHomeCopy = {
   meta: {
-    title: 'Google & Meta Ads for Education | Radhi Arrazzaaq',
+    title: 'Radhi Arrazzaaq - Bio Link',
     description: 'I help tutoring and language-course businesses connect Google Ads, Meta Ads, lead qualification, and follow-up to improve qualified trial bookings.',
     ogTitle: 'From Paid Ads to Qualified Trial Bookings',
     ogDescription: 'Work with Radhi Arrazzaaq to connect Google Ads and Meta Ads with lead qualification, follow-up, and trial bookings for your education business.',
@@ -91,7 +91,7 @@ export type HomeCopy = typeof englishHomeCopy;
 
 const indonesianHomeCopy: HomeCopy = {
   meta: {
-    title: 'Google & Meta Ads untuk Bisnis Edukasi | Radhi Arrazzaaq',
+    title: 'Radhi Arrazzaaq - Bio Link',
     description: 'Saya membantu bisnis bimbel dan kursus bahasa menghubungkan Google Ads, Meta Ads, kualifikasi lead, dan tindak lanjut untuk booking trial berkualitas.',
     ogTitle: 'Dari Iklan Berbayar ke Booking Trial Berkualitas',
     ogDescription: 'Bangun alur lead bisnis edukasi bersama Radhi Arrazzaaq melalui Google Ads, Meta Ads, kualifikasi lead, dan tindak lanjut hingga booking trial.',
