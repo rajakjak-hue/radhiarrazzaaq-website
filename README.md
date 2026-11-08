@@ -1,46 +1,36 @@
-# Astro Starter Kit: Basics
+# radhiarrazzaaq.com
 
-```sh
-npm create astro@latest -- --template basics
-```
+Personal brand and bio link site for Radhi Arrazzaaq. Built with Astro, hosted on Cloudflare Pages. English at `/`, Indonesian under `/id/`.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Start here (new session or new helper)
 
-## 🚀 Project Structure
+Read these first:
 
-Inside of your Astro project, you'll see the following folders and files:
+- `AGENTS.md` / `CLAUDE.md`: rules and the release workflow.
+- `MEMORY.md`: what is done, what is pending, owner preferences.
+- `WRITER-BRIEF.md`: approved copy and positioning.
+- `.agents/`: roles, product marketing notes, and the site builder skill.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## Where things live
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+| What | Where |
+| :-- | :-- |
+| Homepage (bio link) | `src/components/HomePage.astro`, copy in `src/data/homeCopy.ts` |
+| Other page copy | `src/data/howIWorkCopy.ts`, `src/data/blogCopy.ts` |
+| SEO and meta | `src/data/siteSeo.ts`, `src/layouts/Layout.astro` |
+| Turn Blog / Case Studies on or off | `siteAvailability.mjs` |
+| Blog posts | `src/content/blog/en`, `src/content/blog/id` |
+| Profile photo | `images/` |
 
-## 🧞 Commands
+## Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command | Action |
+| :-- | :-- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at `localhost:4321` (or `astro dev --background`) |
+| `npm run build` | Build to `./dist/` |
+| `aislop scan` | Code quality check, run before pushing |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Release
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Branch, build, `aislop scan`, push the branch, review the Cloudflare preview URL, get the owner's approval, then merge to `main`. Production deploys automatically. Never upload `dist/` by hand. Details in `AGENTS.md`.
