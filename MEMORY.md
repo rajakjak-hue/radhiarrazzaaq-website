@@ -46,7 +46,7 @@ Check `package.json` and `astro.config.mjs` for the exact installed versions and
 - Keep writing clear and concise. In casual discussion, explore ideas without automatically turning every thought into an implementation task.
 - Coding-only project workflow: work from local source and text-based checks. Do not open/control browsers or use screenshots/visual inspection; provide preview URLs for the owner to inspect.
 - When starting Astro locally, use background mode (`astro dev --background`) and manage it with `astro dev status`, `astro dev logs`, and `astro dev stop`.
-- Website release workflow: Cloudflare Pages is connected to GitHub and builds automatically. Work on a branch, run `npm run build` and `aislop scan`, push the branch to get a preview URL, wait for explicit owner approval, then merge to `main` for the production deploy. No manual `dist/` uploads. See `AGENTS.md`.
+- Website release workflow: Cloudflare Pages is connected to GitHub and builds automatically. Work on the single `preview` branch (reset it to `main` first), run `npm run build` and `aislop scan`, push it to update the fixed preview link `https://preview.radhiarrazzaaq-website.pages.dev`, wait for explicit owner approval, then merge to `main` for the production deploy. No manual `dist/` uploads. See `AGENTS.md`.
 
 ## Important project structure
 

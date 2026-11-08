@@ -29,4 +29,4 @@ Typical handoff: Marketing Partner develops ideas, Writer drafts the writing, De
 - The Designer should provide structure, rationale, and an implementation-ready brief, then hand coding to Codex-Engineer. Writer owns the writing.
 - Keep the user's voice approachable and direct. Do not use em dashes in website copy.
 - Project agents are coding-only with respect to website inspection: do not open browsers or preview URLs, use screenshots, or perform visual inspection. Provide preview URLs for the user to review manually. Text-based source and build-output checks are allowed.
-- Follow the release workflow in `AGENTS.md`: work on a branch, build and run `aislop scan`, push the branch so Cloudflare Pages creates a preview URL, wait for explicit preview approval, then merge to `main` for the automatic production deploy. No manual `dist/` uploads.
+- Follow the release workflow in `AGENTS.md`: work on the single `preview` branch (reset it to `main` first), build and run `aislop scan`, push it so Cloudflare Pages updates the fixed preview link, wait for explicit preview approval, then merge to `main` for the automatic production deploy. No manual `dist/` uploads.

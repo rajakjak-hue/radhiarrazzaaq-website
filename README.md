@@ -33,4 +33,4 @@ Read these first:
 
 ## Release
 
-Branch, build, `aislop scan`, push the branch, review the Cloudflare preview URL, get the owner's approval, then merge to `main`. Production deploys automatically. Never upload `dist/` by hand. Details in `AGENTS.md`.
+Use the single `preview` branch, build, `aislop scan`, push, review the fixed preview link (`preview.radhiarrazzaaq-website.pages.dev`), get the owner's approval, then merge to `main`. Production deploys automatically. Never upload `dist/` by hand. Details in `AGENTS.md`.
