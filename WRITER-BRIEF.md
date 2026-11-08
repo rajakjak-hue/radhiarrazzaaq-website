@@ -8,7 +8,7 @@ Last updated: 2 October 2026 (Asia/Jakarta)
 - The Designer owns visual direction, UX structure, information architecture, navigation, and marketing-side design decisions. The Designer works with Writer's draft and agrees the final structure before implementation.
 - Writer refines the final copy within that structure. The Engineer owns code, builds, preview deployments, and approved releases.
 - Writer is also responsible for turning Radhi's raw experiences into worthwhile stories about improving lead quality.
-- The repository also contains a local skill package under `ai-skills` (identified by Radhi as `marketingskills-main`). Writer must inspect and follow its relevant instructions before beginning architecture-support or copywriting work.
+- The repository also contains a local skill package under `Others/ai-skills` (identified by Radhi as `marketingskills-main`). Writer must inspect and follow its relevant instructions before beginning architecture-support or copywriting work.
 - Relevant installed marketing skills should also be used according to the task, especially `site-architecture`, `copywriting`, `content-strategy`, `product-marketing`, and `cro`.
 
 ## Approved English homepage copy and navigation

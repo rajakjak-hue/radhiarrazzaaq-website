@@ -10,15 +10,24 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## Release workflow
 
+Cloudflare Pages is connected to the GitHub repository. Builds and deploys are automatic; do not upload `dist/` manually.
+
 For every website change:
 
-1. Build the site with `npm.cmd run build`.
-2. Deploy `dist/` to the Cloudflare Pages `preview` branch for review.
-3. Wait for the user's explicit approval of the preview.
-4. Commit the approved change to Git and push it to the `main` branch.
-5. Deploy the approved `dist/` build to the Cloudflare Pages production branch.
+1. Create a branch for the change.
+2. Build locally with `npm run build` to verify it compiles. Then run `aislop scan` and fix any errors it reports before continuing. Do not run `aislop fix -f` (aggressive: dependency changes, file removal) without the user's explicit go.
+3. Commit and push the branch to GitHub. Cloudflare Pages builds it automatically and returns a preview URL. Share that URL with the user.
+4. Wait for the user's explicit approval of the preview.
+5. Merge the approved branch into `main`, or push the approved change to `main`. Cloudflare Pages deploys production automatically.
 
-Cloudflare Pages project: `radhiarrazzaaq-website`.
+Rules:
+
+- Never push to `main` or trigger a production deploy before the user approves the preview.
+- Never deploy manually with Wrangler, direct upload, or drag-and-drop unless the user explicitly asks.
+- Keep `.node-version` pinned; Cloudflare uses it to select the build's Node.js version.
+- Preview deployments are per branch. Production branch: `main`.
+
+Cloudflare Pages project: `radhiarrazzaaq-website` (GitHub repo `rajakjak-hue/radhiarrazzaaq-website`).
 
 ## Documentation
 

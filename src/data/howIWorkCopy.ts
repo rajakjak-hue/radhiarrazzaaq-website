@@ -1,3 +1,4 @@
+// aislop-ignore-file code-quality/duplicate-block -- EN/ID copy objects share the same shape by design; text differs per language
 const englishHowIWorkCopy = {
   meta: {
     title: 'How We’ll Work Together | Radhi Arrazzaaq',

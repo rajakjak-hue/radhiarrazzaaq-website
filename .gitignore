@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# personal working assets and downloaded skill packages (kept on disk, not part of the website build)
+Others/
+files/
